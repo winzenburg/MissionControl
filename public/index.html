@@ -419,6 +419,76 @@
             </div>
         </div>
 
+        <!-- Analytics Dashboard Section -->
+        <div class="section-title">📊 Project Analytics (PostHog)</div>
+        <div class="grid grid-3col">
+            <div class="card">
+                <div class="card-title">Kinlet.care (Waitlist)</div>
+                <div style="margin-top: var(--spacing-lg); font-size: var(--font-size-sm);">
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <div style="color: var(--color-text-tertiary);">Conversion Rate</div>
+                        <div style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--color-accent-success);">
+                            <span id="kinletConversion">7.69</span>%
+                        </div>
+                    </div>
+                    <div>
+                        <div style="color: var(--color-text-tertiary);">Pageviews / Signups</div>
+                        <div style="font-weight: 500;">
+                            <span id="kinletPageviews">234</span> / <span id="kinletSignups">18</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
+                        <div style="color: var(--color-text-tertiary); font-size: var(--font-size-xs);">Top Source</div>
+                        <div id="kinletSource" style="font-weight: 500;">direct</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Kinetic-ui.com (Early Access)</div>
+                <div style="margin-top: var(--spacing-lg); font-size: var(--font-size-sm);">
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <div style="color: var(--color-text-tertiary);">Conversion Rate</div>
+                        <div style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--color-accent-success);">
+                            <span id="kineticConversion">7.69</span>%
+                        </div>
+                    </div>
+                    <div>
+                        <div style="color: var(--color-text-tertiary);">Pageviews / Signups</div>
+                        <div style="font-weight: 500;">
+                            <span id="kineticPageviews">156</span> / <span id="kineticSignups">12</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
+                        <div style="color: var(--color-text-tertiary); font-size: var(--font-size-xs);">Top Source</div>
+                        <div id="kineticSource" style="font-weight: 500;">HackerNews</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Winzenburg.com (CTA Clicks)</div>
+                <div style="margin-top: var(--spacing-lg); font-size: var(--font-size-sm);">
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <div style="color: var(--color-text-tertiary);">CTA Conversion Rate</div>
+                        <div style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--color-accent-success);">
+                            <span id="winzenburgConversion">5.34</span>%
+                        </div>
+                    </div>
+                    <div>
+                        <div style="color: var(--color-text-tertiary);">Pageviews / CTAs</div>
+                        <div style="font-weight: 500;">
+                            <span id="winzenburgPageviews">412</span> / <span id="winzenburgCTAs">22</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
+                        <div style="color: var(--color-text-tertiary); font-size: var(--font-size-xs);">Top Source</div>
+                        <div id="winzenburgSource" style="font-weight: 500;">LinkedIn</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- AMS NX Screener Section -->
         <div class="section-title">🎯 Trading Screener — AMS NX v2</div>
         <div class="grid">
@@ -765,6 +835,9 @@
                 // Performance (Daily, Weekly, MTD, YTD)
                 if (data.performance) updatePerformance(data.performance);
 
+                // Analytics (PostHog metrics)
+                if (data.analytics) updateAnalytics(data.analytics);
+
                 // System Health
                 updateSystemHealth(data.system);
 
@@ -785,6 +858,46 @@
 
             } catch (error) {
                 console.error('Error loading dashboard:', error);
+            }
+        }
+
+        function updateAnalytics(analytics) {
+            if (!analytics) return;
+            
+            // Kinlet.care
+            if (analytics.kinlet) {
+                document.getElementById('kinletConversion').textContent = analytics.kinlet.conversionRatePercent?.toFixed(2) || '0';
+                document.getElementById('kinletPageviews').textContent = analytics.kinlet.pageviews || '0';
+                document.getElementById('kinletSignups').textContent = analytics.kinlet.signups || '0';
+                const topKinletSource = Object.entries(analytics.kinlet.trafficSources || {})
+                    .sort((a, b) => b[1] - a[1])[0];
+                if (topKinletSource) {
+                    document.getElementById('kinletSource').textContent = topKinletSource[0];
+                }
+            }
+            
+            // Kinetic-ui.com
+            if (analytics.kineticUI) {
+                document.getElementById('kineticConversion').textContent = analytics.kineticUI.conversionRatePercent?.toFixed(2) || '0';
+                document.getElementById('kineticPageviews').textContent = analytics.kineticUI.pageviews || '0';
+                document.getElementById('kineticSignups').textContent = analytics.kineticUI.signups || '0';
+                const topKineticSource = Object.entries(analytics.kineticUI.trafficSources || {})
+                    .sort((a, b) => b[1] - a[1])[0];
+                if (topKineticSource) {
+                    document.getElementById('kineticSource').textContent = topKineticSource[0];
+                }
+            }
+            
+            // Winzenburg.com
+            if (analytics.winzenburg) {
+                document.getElementById('winzenburgConversion').textContent = analytics.winzenburg.conversionRatePercent?.toFixed(2) || '0';
+                document.getElementById('winzenburgPageviews').textContent = analytics.winzenburg.pageviews || '0';
+                document.getElementById('winzenburgCTAs').textContent = analytics.winzenburg.signups || '0';
+                const topWinzenburgSource = Object.entries(analytics.winzenburg.trafficSources || {})
+                    .sort((a, b) => b[1] - a[1])[0];
+                if (topWinzenburgSource) {
+                    document.getElementById('winzenburgSource').textContent = topWinzenburgSource[0];
+                }
             }
         }
 

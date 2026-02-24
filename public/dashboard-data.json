@@ -299,5 +299,56 @@
       "pnl": "0.00",
       "returnPct": "0.00"
     }
+  },
+  "analytics": {
+    "kinlet": {
+      "pageviews": 234,
+      "signups": 18,
+      "conversionRatePercent": 7.69,
+      "trafficSources": {
+        "direct": 120,
+        "google": 80,
+        "reddit": 34
+      },
+      "scrollEngagement": {
+        "25%": 200,
+        "50%": 120,
+        "75%": 45,
+        "100%": 12
+      }
+    },
+    "kineticUI": {
+      "pageviews": 156,
+      "signups": 12,
+      "conversionRatePercent": 7.69,
+      "trafficSources": {
+        "hackernews": 89,
+        "twitter": 45,
+        "direct": 22
+      },
+      "scrollEngagement": {
+        "25%": 140,
+        "50%": 89,
+        "75%": 34,
+        "100%": 8
+      }
+    },
+    "winzenburg": {
+      "pageviews": 412,
+      "signups": 22,
+      "conversionRatePercent": 5.34,
+      "trafficSources": {
+        "linkedin": 189,
+        "organic": 145,
+        "direct": 78
+      },
+      "scrollEngagement": {
+        "25%": 350,
+        "50%": 200,
+        "75%": 78,
+        "100%": 15
+      }
+    },
+    "lastUpdate": "2026-02-24T22:46:06.960Z"
   }
 }
