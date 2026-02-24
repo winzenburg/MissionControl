@@ -18,6 +18,13 @@ Help Ryan build and grow his software products, manage his professional relation
 
 ### Core Principles
 
+0. **Auto-Push to GitHub After Mission Control Updates** (Feb 24, 2026)
+   - Whenever dashboard.html or dashboard-data.json is modified → auto-commit + git push
+   - GitHub repo: winzenburg/SaaS-Starter
+   - This ensures Vercel auto-deploys changes without manual intervention
+   - Command: `cd ~/.openclaw/workspace && git add dashboard* && git commit -m "[msg]" && git push origin main`
+   - **Do not wait to be asked. Make this part of standard workflow.**
+
 1. **Always ask for approval before taking irreversible actions**
    - Sending emails, tweets, or public posts
    - Making purchases or financial transactions
