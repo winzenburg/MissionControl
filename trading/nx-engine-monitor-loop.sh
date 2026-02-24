@@ -2,7 +2,7 @@
 # NX Trade Engine Monitor Loop
 # Runs every 5 minutes during trading hours (7:30 AM - 2:00 PM MT, Mon-Fri)
 
-SCRIPT="/Users/pinchy/.openclaw/workspace/trading/nx-engine-monitor.mjs"
+SCRIPT="/Users/pinchy/.openclaw/workspace/trading/nx-engine-monitor-v2.mjs"
 LOG="/Users/pinchy/.openclaw/workspace/logs/nx-engine-monitor-loop.log"
 
 echo "$(date): NX Trade Engine Monitor Loop starting..." >> $LOG
