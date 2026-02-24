@@ -1,0 +1,121 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-08",
+  "tier": 1,
+  "account": {
+    "total_capital": 150000,
+    "trading_capital": 45000,
+    "conservative_allocation": 105000,
+    "currency": "USD"
+  },
+  "position_sizing": {
+    "risk_per_trade_percent": 1.0,
+    "risk_per_trade_dollars": 450,
+    "max_position_size_percent": 20.0,
+    "max_position_size_dollars": 9000,
+    "confidence_multiplier": {
+      "enabled": true,
+      "high_confidence_threshold": 0.85,
+      "high_confidence_multiplier": 1.5,
+      "description": "Increase risk to 1.5% for high-confidence setups (>0.85 confidence)"
+    }
+  },
+  "portfolio_limits": {
+    "max_concurrent_positions": 5,
+    "max_sector_exposure_percent": 40.0,
+    "max_sector_exposure_dollars": 18000,
+    "min_cash_reserve_percent": 5.0,
+    "min_cash_reserve_dollars": 2250,
+    "max_correlation_threshold": 0.7,
+    "description": "Alert if any two positions have correlation > 0.7"
+  },
+  "loss_limits": {
+    "max_daily_loss_percent": 3.0,
+    "max_daily_loss_dollars": 1350,
+    "max_weekly_loss_percent": 6.0,
+    "max_weekly_loss_dollars": 2700,
+    "max_monthly_loss_percent": 12.0,
+    "max_monthly_loss_dollars": 5400,
+    "max_drawdown_percent": 15.0,
+    "max_drawdown_dollars": 6750,
+    "circuit_breaker": {
+      "enabled": true,
+      "description": "Halt all trading if daily loss limit hit; requires manual reset"
+    }
+  },
+  "execution": {
+    "allowed_order_types": [
+      "MARKET",
+      "LIMIT",
+      "STOP_LIMIT",
+      "BRACKET"
+    ],
+    "default_order_type": "LIMIT",
+    "slippage_assumption_percent": 0.05,
+    "min_liquidity_avg_volume": 1000000,
+    "min_liquidity_description": "Only trade stocks with 1M+ average daily volume",
+    "max_order_size_percent_of_volume": 1.0,
+    "description": "Don't place orders larger than 1% of average daily volume"
+  },
+  "time_restrictions": {
+    "trading_hours": {
+      "start": "09:45",
+      "end": "15:45",
+      "timezone": "America/New_York",
+      "description": "Avoid first and last 15 minutes of market"
+    },
+    "no_trade_windows": [
+      {
+        "description": "FOMC announcements",
+        "check": "calendar_event",
+        "event_type": "FOMC"
+      },
+      {
+        "description": "Major earnings for positions",
+        "check": "earnings_calendar",
+        "scope": "holdings_only"
+      }
+    ]
+  },
+  "tier_upgrade_criteria": {
+    "tier_2": {
+      "monthly_pnl_threshold": 2000,
+      "consecutive_months": 3,
+      "min_win_rate": 0.55,
+      "min_sharpe_ratio": 1.5,
+      "max_drawdown": 0.1,
+      "min_total_trades": 30,
+      "max_critical_failures": 0,
+      "description": "Upgrade to Tier 2 when all criteria met for 3 consecutive months"
+    },
+    "tier_3": {
+      "monthly_pnl_threshold": 10000,
+      "consecutive_months": 3,
+      "min_win_rate": 0.55,
+      "min_sharpe_ratio": 1.8,
+      "max_drawdown": 0.12,
+      "min_total_trades": 100,
+      "tier_2_uptime": 0.99,
+      "description": "Upgrade to Tier 3 when all criteria met for 3 consecutive months"
+    }
+  },
+  "alerts": {
+    "telegram_enabled": true,
+    "alert_on_trade_execution": true,
+    "alert_on_stop_loss_hit": true,
+    "alert_on_take_profit_hit": true,
+    "alert_on_daily_loss_warning": true,
+    "daily_loss_warning_threshold": 0.02,
+    "alert_on_correlation_warning": true,
+    "alert_on_system_error": true,
+    "daily_summary_time": "16:30",
+    "weekly_summary_day": "Sunday",
+    "weekly_summary_time": "18:00"
+  },
+  "notes": [
+    "This is Tier 1 configuration for initial deployment",
+    "All dollar amounts calculated based on $45,000 trading capital",
+    "Risk caps will scale when upgrading to Tier 2 and Tier 3",
+    "Review and adjust after first 30 trades or 3 months, whichever comes first"
+  ]
+}

@@ -1,0 +1,76 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary Files
+temp/
+tmp/
+.tmp/
+
+# Build/Dist
+dist/
+build/
+
+# Credentials & Secrets
+.sent-log.json
+keychain-*.json
+*.key
+*.pem
+secrets/
+
+# Cache
+.ollama-cache/
+.cache/
+
+# Local Testing
+test-*.js
+*.test.local
+
+# Trading/Market Data (local cache)
+trading/data/*.json
+trading/cache/
+
+# CRM (personal data)
+crm/contacts/*.json
+
+# Meeting Archives (local)
+meetings/*.md
+meetings/**/*.md
+
+# Backups
+*.backup
+*.bak
+backup/
+
+# Node
+.node-gyp/
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/

@@ -1,0 +1,36 @@
+{
+  "lastChecks": {
+    "market": 1771832400000,
+    "github": 1771835100000,
+    "kinletFeedback": 1771723240157,
+    "security": 1771863480000,
+    "communications": 1771823580000,
+    "moltbook": 1771723323968,
+    "newsMonitor": 0
+  },
+  "cadence": {
+    "market": {
+      "every": "30m",
+      "window": "07:30-14:00"
+    },
+    "github": {
+      "every": "2h"
+    },
+    "kinletFeedback": {
+      "every": "4h"
+    },
+    "security": {
+      "every": "12h"
+    },
+    "communications": {
+      "every": "1h"
+    },
+    "moltbook": {
+      "every": "30m"
+    },
+    "newsMonitor": {
+      "every": "5m",
+      "window": "07:45-13:45"
+    }
+  }
+}
