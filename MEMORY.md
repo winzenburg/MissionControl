@@ -51,22 +51,83 @@ For each project, Mission Control displays:
 - **Time allocation** (how much of your week goes here)
 - **Health status** (green/yellow/red based on progress)
 
-### Analytics Integration (TO BUILD)
+### Analytics Strategy (Feb 24, 2026)
 
-For each project, I should automatically pull metrics from:
+**Key Principle:** Conversion rate and traffic source quality > raw traffic volume. Track metrics relevant to each stage (early, pre-launch, mature).
 
-| Project | Data Source | Metrics to Pull | Frequency |
-|---------|-------------|-----------------|-----------|
-| **Potshards** | Substack/email platform API | Subscriber count, revenue, open rate, engagement | Daily |
-| **kinlet.care** | Landing page/form tool (Webflow? Typeform?) | Waitlist signups, conversion rate | Daily |
-| **winzenburg.com** | Google Analytics 4 | Monthly traffic, visitors, bounce rate, top pages | Daily |
-| **kinetic-ui.com** | npm registry API + GitHub API | Downloads/week, GitHub stars, contributors | Daily |
-| **Cultivate** | Stripe (if live) + internal metrics | Revenue, customer count, churn, MRR | Daily |
-| **Trading** | IB Gateway API + local logs | P&L, positions, equity curve, Sharpe | Every 5 min during trading |
-| **Job Search** | Manual tracking (spreadsheet/form) | Applications sent, interviews scheduled, pipeline | Weekly |
-| **LinkedIn** | LinkedIn API or manual tracking | Posts published, engagement, followers, reach | Daily |
+#### **Potshards & Shenanigans (Early — 7 subs, 3 months old)**
+**Strategy:** Pure audience-building mode. Use Substack native analytics only.
 
-**Action: Once you provide API keys/access, I'll integrate these data sources into Mission Control so metrics auto-populate.**
+**North Star:** Subscriber growth (weekly net adds)
+
+**Metrics to track:**
+- Subscriber growth (weekly net adds) — 2-3 per post is meaningful signal
+- Open rate (target 50-70%+ for small engaged list)
+- Post views vs subscriber count ratio (indicates external discovery/sharing)
+- Traffic sources (X/Twitter, Reddit, direct — identify highest-converting channel)
+
+**NOT tracking yet:** Revenue or paid conversion (focus entirely on content-market fit)
+
+---
+
+#### **kinlet.care (Pre-launch — waitlist landing page)**
+**Strategy:** Entire job = convert visitors to waitlist signups. Use GDPR-friendly tool (Plausible or Fathom) — health-sensitive audience.
+
+**North Star:** Waitlist conversion rate (15-20%+ on cold traffic = strong PMF signal)
+
+**Metrics to track:**
+- Waitlist conversion rate (% of unique visitors who submit form)
+- Traffic sources (Reddit r/dementia, r/AgingParents, Facebook caregiver groups, organic search)
+- Scroll depth (how far before drop-off?)
+- Form field drop-off (email vs relationship vs stage — simplify if bottleneck)
+
+---
+
+#### **winzenburg.com (Mature — consulting/advisory site)**
+**Strategy:** Shift from traffic to lead quality. Consulting GTM requires understanding buyer journey.
+
+**North Star:** Contact/call booking conversion rate (CTA conversion)
+
+**Metrics to track:**
+- CTA conversion rate (% clicking "Schedule a Call" or "Contact")
+- Top pages by engagement (Work, Methodology, Services — what keeps people on-site?)
+- Traffic sources — **LinkedIn is highest-intent source** (monitor referral traffic → bookings)
+- Google Search Console (which queries surface your site? e.g., "AI design operations leader")
+- Return visitor rate (signals thought leadership)
+
+**Infrastructure:** Google Analytics 4 + Google Search Console
+
+---
+
+#### **kinetic-ui.com (Pre-launch — B2B SaaS landing page)**
+**Strategy:** Validation + early adopter capture for technical audience (CTOs, VPs Eng, Heads of Product).
+
+**North Star:** Early access conversion rate (5-10%+ on cold B2B technical traffic = strong)
+
+**Metrics to track:**
+- Early access conversion rate
+- Role distribution in signups (Founder vs CTO vs Designer — informs GTM and feature prioritization)
+- Traffic sources (Hacker News, design Twitter/X, Product Hunt, fintech communities — highest-intent channels)
+- "How it works" scroll engagement (if visitors don't scroll past hero, value prop needs sharpening)
+- Founder slots scarcity signal (when real numbers populate, track conversion as slots decrease)
+
+**Infrastructure:** Plausible or Fathom for form analysis + scroll depth
+
+---
+
+#### **Other Projects**
+- **Cultivate:** Stripe API (revenue, customers, churn) + internal metrics — Daily
+- **Trading:** IB Gateway API + local position logs — Every 5 min during trading hours
+- **Job Search:** Manual tracking (spreadsheet/ATS) — Weekly
+- **LinkedIn Content:** Manual tracking or LinkedIn API — Daily (posts, engagement, followers, reach)
+
+---
+
+**Implementation Roadmap:**
+1. **Phase 1 (This week):** Set up analytics tracking for kinlet.care + kinetic-ui.com (lightweight tools)
+2. **Phase 2 (Next week):** Connect Google Analytics to winzenburg.com + Search Console
+3. **Phase 3 (Week after):** Build dashboard connectors to auto-pull and display metrics
+4. **Phase 4:** Advanced features (role segmentation, traffic attribution, conversion funnels)
 
 ---
 
