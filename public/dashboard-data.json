@@ -280,5 +280,24 @@
         "targetPrice": "1616.06"
       }
     ]
+  },
+  "performance": {
+    "lastUpdate": "2026-02-24T20:59:40.995Z",
+    "daily": {
+      "pnl": "0.00",
+      "returnPct": "0.00"
+    },
+    "weekly": {
+      "pnl": "0.00",
+      "returnPct": "0.00"
+    },
+    "mtd": {
+      "pnl": "0.00",
+      "returnPct": "0.00"
+    },
+    "ytd": {
+      "pnl": "0.00",
+      "returnPct": "0.00"
+    }
   }
 }

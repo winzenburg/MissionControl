@@ -357,14 +357,54 @@
 
         <!-- Trading P&L Section -->
         <div class="section-title">📈 Active Trades — P&L Summary</div>
-        <div class="grid grid-2col" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="grid grid-2col" style="grid-template-columns: repeat(5, 1fr);">
             <div class="card">
                 <div class="card-title">Total P&L</div>
                 <div style="font-size: var(--font-size-3xl); font-weight: 600; margin-top: var(--spacing-lg);">
                     <span id="totalPnL" style="color: var(--color-accent-success);">$0.00</span>
                 </div>
                 <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
-                    <span id="totalPnLPct">+0.00%</span> | Open Positions: <span id="openPositionCount">0</span>
+                    <span id="totalPnLPct">+0.00%</span> | <span id="openPositionCount">0</span> open
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Daily Return</div>
+                <div style="font-size: var(--font-size-2xl); font-weight: 600; margin-top: var(--spacing-lg);">
+                    <span id="dailyReturn" style="color: var(--color-accent-success);">$0.00</span>
+                </div>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
+                    <span id="dailyReturnPct">+0.00%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Weekly Return</div>
+                <div style="font-size: var(--font-size-2xl); font-weight: 600; margin-top: var(--spacing-lg);">
+                    <span id="weeklyReturn" style="color: var(--color-accent-success);">$0.00</span>
+                </div>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
+                    <span id="weeklyReturnPct">+0.00%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">MTD Return</div>
+                <div style="font-size: var(--font-size-2xl); font-weight: 600; margin-top: var(--spacing-lg);">
+                    <span id="mtdReturn" style="color: var(--color-accent-success);">$0.00</span>
+                </div>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
+                    <span id="mtdReturnPct">+0.00%</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">YTD Return</div>
+                <div style="font-size: var(--font-size-2xl); font-weight: 600; margin-top: var(--spacing-lg);">
+                    <span id="ytdReturn" style="color: var(--color-accent-success);">$0.00</span>
+                </div>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
+                    <span id="ytdReturnPct">+0.00%</span>
                 </div>
             </div>
 
@@ -722,6 +762,9 @@
                 // Trading P&L
                 if (data.trading) updateTrading(data.trading);
 
+                // Performance (Daily, Weekly, MTD, YTD)
+                if (data.performance) updatePerformance(data.performance);
+
                 // System Health
                 updateSystemHealth(data.system);
 
@@ -743,6 +786,50 @@
             } catch (error) {
                 console.error('Error loading dashboard:', error);
             }
+        }
+
+        function updatePerformance(performance) {
+            if (!performance) return;
+            
+            // Update daily return
+            const dailyPnL = parseFloat(performance.daily?.pnl || 0);
+            const dailyPct = parseFloat(performance.daily?.returnPct || 0);
+            const dailyColor = dailyPnL >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+            
+            document.getElementById('dailyReturn').textContent = `$${dailyPnL.toFixed(2)}`;
+            document.getElementById('dailyReturn').style.color = dailyColor;
+            document.getElementById('dailyReturnPct').textContent = `${dailyPnL >= 0 ? '+' : ''}${dailyPct}%`;
+            document.getElementById('dailyReturnPct').style.color = dailyColor;
+            
+            // Update weekly return
+            const weeklyPnL = parseFloat(performance.weekly?.pnl || 0);
+            const weeklyPct = parseFloat(performance.weekly?.returnPct || 0);
+            const weeklyColor = weeklyPnL >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+            
+            document.getElementById('weeklyReturn').textContent = `$${weeklyPnL.toFixed(2)}`;
+            document.getElementById('weeklyReturn').style.color = weeklyColor;
+            document.getElementById('weeklyReturnPct').textContent = `${weeklyPnL >= 0 ? '+' : ''}${weeklyPct}%`;
+            document.getElementById('weeklyReturnPct').style.color = weeklyColor;
+            
+            // Update MTD return
+            const mtdPnL = parseFloat(performance.mtd?.pnl || 0);
+            const mtdPct = parseFloat(performance.mtd?.returnPct || 0);
+            const mtdColor = mtdPnL >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+            
+            document.getElementById('mtdReturn').textContent = `$${mtdPnL.toFixed(2)}`;
+            document.getElementById('mtdReturn').style.color = mtdColor;
+            document.getElementById('mtdReturnPct').textContent = `${mtdPnL >= 0 ? '+' : ''}${mtdPct}%`;
+            document.getElementById('mtdReturnPct').style.color = mtdColor;
+            
+            // Update YTD return
+            const ytdPnL = parseFloat(performance.ytd?.pnl || 0);
+            const ytdPct = parseFloat(performance.ytd?.returnPct || 0);
+            const ytdColor = ytdPnL >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+            
+            document.getElementById('ytdReturn').textContent = `$${ytdPnL.toFixed(2)}`;
+            document.getElementById('ytdReturn').style.color = ytdColor;
+            document.getElementById('ytdReturnPct').textContent = `${ytdPnL >= 0 ? '+' : ''}${ytdPct}%`;
+            document.getElementById('ytdReturnPct').style.color = ytdColor;
         }
 
         function updateTrading(trading) {
