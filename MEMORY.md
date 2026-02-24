@@ -121,6 +121,33 @@ window.addEventListener('scroll', function() {
   - Form abandonment rates
   - Return visitor metrics
 
+**Deployment Status:**
+
+1. **Kinlet.care (Cultivate repo on Vercel)**
+   - ✅ PostHog integrated (PostHogProvider.tsx)
+   - ✅ Local .env.local updated
+   - ⏳ NEED: Set NEXT_PUBLIC_POSTHOG_KEY in Vercel environment variables
+   - ⏳ NEED: Set NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com in Vercel
+
+2. **Kinetic-ui.com (Cultivate repo on Vercel)**
+   - ✅ PostHog integrated
+   - ✅ Local .env.local updated
+   - ⏳ NEED: Set NEXT_PUBLIC_POSTHOG_KEY in Vercel environment variables
+   - ⏳ NEED: Set NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com in Vercel
+
+3. **Winzenburg.com (Portfolio repo on Netlify)**
+   - ✅ PostHog snippet embedded in index.html
+   - ✅ Event tracking added to main.tsx (CTAs, scroll, articles, navigation)
+   - ✅ Pushed to GitHub (Netlify auto-deploying now)
+   - 🟢 LIVE (data collection active)
+
+**Vercel Environment Variables to Set:**
+For both kinlet.care and kinetic-ui.com apps:
+```
+NEXT_PUBLIC_POSTHOG_KEY=phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
 **Mission Control Integration (Next):**
 - Pull conversion rate for kinlet.care (North Star metric)
 - Pull conversion rate for kinetic-ui.com
