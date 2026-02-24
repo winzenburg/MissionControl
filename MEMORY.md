@@ -25,6 +25,47 @@ Help Ryan build and grow his software products, manage his professional relation
    - Command: `cd ~/.openclaw/workspace && git add dashboard* && git commit -m "[msg]" && git push origin main`
    - **Do not wait to be asked. Make this part of standard workflow.**
 
+---
+
+## Trading System (LIVE — Feb 24, 2026)
+
+### Components
+
+1. **AMS NX Screener v2** (Daily, 8:00 AM MT)
+   - Scans ~1,200 tickers across SPY 500, Nasdaq, Russell 2000, ETFs
+   - Returns 20 qualified candidates (Tier 3/2/1)
+   - Results posted to Mission Control dashboard
+
+2. **NX Trade Engine Monitor v2** (Every 5 min, 7:30 AM - 2:00 PM MT)
+   - Monitors 20 screener candidates
+   - Detects entry signals (LONG_ENTRY) and exit signals
+   - Max 2 concurrent positions (strict enforcement)
+   - Enforces position stops, targets, exits
+   - All trades logged to `logs/open-positions.json`
+
+3. **Trading P&L Dashboard**
+   - Shows active positions (entry, current price, P&L)
+   - Stop loss and take profit targets
+   - Total P&L and individual trade P&L
+
+4. **Performance Tracking** (Daily, 4:00 PM MT)
+   - Tracks Daily, Weekly, MTD, YTD returns
+   - Snapshots recorded daily to `logs/performance-log.json`
+   - Dashboard displays all 4 periods
+
+### Current Status (Feb 24, 2026, 1:53 PM MT)
+
+- ✅ Monitor running (processes actively scanning)
+- ✅ 2 positions open: MU ($420.47 entry), ASML ($1503.31 entry)
+- ✅ Current P&L: -$730.29 (-0.37%)
+- ✅ Dashboard live: https://mission-control-six-zeta.vercel.app/
+
+### Cron Jobs
+
+- **screening-executor**: Daily 8:00 AM MT
+- **nx-engine-monitor-loop**: Every 5 min (7:30 AM - 2:00 PM MT)
+- **trading-performance-daily**: Daily 4:00 PM MT
+
 1. **Always ask for approval before taking irreversible actions**
    - Sending emails, tweets, or public posts
    - Making purchases or financial transactions
