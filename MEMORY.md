@@ -51,6 +51,84 @@ For each project, Mission Control displays:
 - **Time allocation** (how much of your week goes here)
 - **Health status** (green/yellow/red based on progress)
 
+### PostHog Analytics Setup (Feb 24-25, 2026)
+
+**Project Credentials:**
+- **PostHog Project Token:** `phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k`
+- **PostHog Project ID:** `244593`
+- **Status:** Ready to embed across all properties
+
+**Properties to Instrument (In Cultivate Repo):**
+1. **kinlet.care** (Cultivate repo, apps/ folder)
+   - Pre-launch waitlist landing page
+   - Events: page view, scroll depth, form field interaction, form submission, CTA click
+   
+2. **kinetic-ui.com** (Cultivate repo, apps/ folder)
+   - Pre-launch early access landing page
+   - Events: page view, scroll depth, "How it works" view, form interaction, submission, Founder slots view
+
+3. **winzenburg.com** (Separate GitHub repo)
+   - Mature consulting/portfolio site
+   - Events: page view, CTA clicks ("Schedule a Call", "Contact"), article engagement, navigation, return visitor
+
+**PostHog Snippet (Add to <head> of all pages):**
+```html
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]]),t[o.length-1]]=e}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".js","")+"/decide/?v=3",p.onload=function(){if(e.decide)e.decide()},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);try{e._i.push(function(){var t;((t=window.posthog).__loaded=!0).config(i,s),e.capture_pageview()})}catch(t){console.error("PostHog script load failed:",t)}},e.__loaded=!0)}(document,window.posthog||[]);
+  posthog.init('phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k',{
+    api_host:'https://us.posthog.com',
+    person_profiles: 'identified_only'
+  })
+</script>
+```
+
+**Custom Events to Configure (JavaScript):**
+```javascript
+// Waitlist form submission
+posthog.capture('waitlist_signup', {
+  email: user_email,
+  relationship: relationship_value,
+  stage: stage_value
+});
+
+// CTA clicks
+posthog.capture('cta_click', {
+  cta_text: 'Schedule a Call',
+  page: window.location.pathname
+});
+
+// Scroll depth tracking
+window.addEventListener('scroll', function() {
+  const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  if (scrollPercent >= 25 && !window.posthog_25) {
+    window.posthog_25 = true;
+    posthog.capture('scroll_depth', { depth: 25 });
+  }
+  // ... repeat for 50%, 75%, 100%
+});
+```
+
+**Action Items:**
+- [ ] Clone Cultivate repo (contains kinlet.care + kinetic-ui.com)
+- [ ] Clone/access winzenburg.com repo
+- [ ] Embed PostHog snippet in all 3 properties
+- [ ] Configure custom events (form submissions, scroll depth, CTAs)
+- [ ] Push changes to GitHub
+- [ ] Build PostHog data connectors in Mission Control to auto-pull:
+  - Conversion rates (form submissions / page views)
+  - Traffic sources (utm_source, referrer)
+  - Scroll engagement (depth distribution)
+  - Form abandonment rates
+  - Return visitor metrics
+
+**Mission Control Integration (Next):**
+- Pull conversion rate for kinlet.care (North Star metric)
+- Pull conversion rate for kinetic-ui.com
+- Pull CTA conversion rate for winzenburg.com
+- Auto-update dashboard with live metrics
+
+---
+
 ### Analytics Strategy (Feb 24, 2026)
 
 **Key Principle:** Conversion rate and traffic source quality > raw traffic volume. Track metrics relevant to each stage (early, pre-launch, mature).
