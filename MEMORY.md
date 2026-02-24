@@ -27,6 +27,49 @@ Help Ryan build and grow his software products, manage his professional relation
 
 ---
 
+## Portfolio Projects & Metrics (Feb 24, 2026)
+
+### 8 Active Projects
+
+| Property | Stage | Primary Goal | North Star Metric |
+|----------|-------|--------------|-------------------|
+| **Potshards & Shenanigans** | Early — 7 subscribers, launched ~3 months ago | Validate content, grow audience | Subscriber growth rate |
+| **kinlet.care** | Pre-launch — waitlist landing page | Validate demand, build waitlist | Waitlist conversion rate |
+| **winzenburg.com** | Active — mature personal/portfolio site | Attract clients, generate leads | Contact/call booking conversion rate |
+| **kinetic-ui.com** | Pre-launch — early access landing page | Validate product, acquire early adopters | Early access conversion rate |
+| **Cultivate** | Early stage SaaS framework | Revenue generation + customer feedback | Revenue MTD + NPS |
+| **Trading** | Live autonomous system | P&L generation + risk management | Monthly return + Sharpe ratio |
+| **Job Search** | Active pipeline | Secure role matching Hedgehog | Interview pipeline conversion |
+| **LinkedIn Content** | Ramping distribution | Personal brand + thought leadership | Engagement rate + follower growth |
+
+### What I'm Tracking
+
+For each project, Mission Control displays:
+- **Current stage** (pre-launch, early, active, mature)
+- **Primary goal** (what we're validating/optimizing)
+- **North Star metric** (the one number that matters most)
+- **Time allocation** (how much of your week goes here)
+- **Health status** (green/yellow/red based on progress)
+
+### Analytics Integration (TO BUILD)
+
+For each project, I should automatically pull metrics from:
+
+| Project | Data Source | Metrics to Pull | Frequency |
+|---------|-------------|-----------------|-----------|
+| **Potshards** | Substack/email platform API | Subscriber count, revenue, open rate, engagement | Daily |
+| **kinlet.care** | Landing page/form tool (Webflow? Typeform?) | Waitlist signups, conversion rate | Daily |
+| **winzenburg.com** | Google Analytics 4 | Monthly traffic, visitors, bounce rate, top pages | Daily |
+| **kinetic-ui.com** | npm registry API + GitHub API | Downloads/week, GitHub stars, contributors | Daily |
+| **Cultivate** | Stripe (if live) + internal metrics | Revenue, customer count, churn, MRR | Daily |
+| **Trading** | IB Gateway API + local logs | P&L, positions, equity curve, Sharpe | Every 5 min during trading |
+| **Job Search** | Manual tracking (spreadsheet/form) | Applications sent, interviews scheduled, pipeline | Weekly |
+| **LinkedIn** | LinkedIn API or manual tracking | Posts published, engagement, followers, reach | Daily |
+
+**Action: Once you provide API keys/access, I'll integrate these data sources into Mission Control so metrics auto-populate.**
+
+---
+
 ## Trading System (LIVE — Feb 24, 2026)
 
 ### Components
