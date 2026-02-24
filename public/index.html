@@ -265,7 +265,7 @@
         <div id="overview" class="tab-content active">
             <div class="section-title">📊 Portfolio Status</div>
             <div class="grid grid-5col">
-                <div class="card" onclick="window.location.href='/trading-dashboard.html';" style="cursor: pointer;">
+                <div class="card" onclick="switchTab('trading');" style="cursor: pointer;">
                     <div class="card-title">Trading</div>
                     <div class="card-metric">
                         <div class="card-metric-label">P&L</div>
@@ -392,29 +392,218 @@
 
         <!-- TRADING TAB -->
         <div id="trading" class="tab-content">
-            <div class="section-title">💹 Trading</div>
+            <div class="section-title">💹 Trading Dashboard</div>
+            
+            <!-- KEY METRICS -->
+            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Portfolio Summary</div>
+            <div class="grid grid-5col">
+                <div class="card">
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Total P&L</div>
+                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$730.29</div>
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">-0.37%</div>
+                </div>
+                <div class="card">
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Daily Return</div>
+                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$0.45</div>
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Today</div>
+                </div>
+                <div class="card">
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Weekly Return</div>
+                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$45.23</div>
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Last 7 days</div>
+                </div>
+                <div class="card">
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">MTD Return</div>
+                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$730.29</div>
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">February</div>
+                </div>
+                <div class="card">
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Open Positions</div>
+                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">2</div>
+                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Max: 2/2</div>
+                </div>
+            </div>
+
+            <!-- RISK METRICS -->
+            <div class="section-title" style="margin-top: var(--spacing-xl);">⚠️ Risk Metrics</div>
+            <div class="grid grid-4col">
+                <div class="card">
+                    <div class="card-title">Max Drawdown</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Current</span>
+                        <span style="color: var(--color-accent-danger);">-0.37%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>YTD High</span>
+                        <span style="color: var(--color-accent-danger);">-0.37%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Threshold</span>
+                        <span>-10.00%</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Win Rate</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Trades</span>
+                        <span>N/A</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Closed Wins</span>
+                        <span>0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Closed Losses</span>
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Sharpe Ratio</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Calculated</span>
+                        <span>N/A</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Target</span>
+                        <span>1.5+</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Status</span>
+                        <span style="color: var(--color-text-secondary);">Pending</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Position Risk</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Max Risk/Trade</span>
+                        <span>0.5%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Margin Used</span>
+                        <span>0%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Status</span>
+                        <span style="color: var(--color-accent-success);">Safe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPEN POSITIONS -->
+            <div class="section-title" style="margin-top: var(--spacing-xl);">📍 Open Positions</div>
+            <div class="card">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
+                        <thead>
+                            <tr style="background-color: var(--color-bg-tertiary);">
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Ticker</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Entry</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Current</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Qty</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">P&L</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">P&L %</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Stop</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Target</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: var(--spacing-md);"><strong>MU</strong></td>
+                                <td style="padding: var(--spacing-md);">$420.47</td>
+                                <td style="padding: var(--spacing-md);">$418.32</td>
+                                <td style="padding: var(--spacing-md);">237</td>
+                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-$509.55</td>
+                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-0.51%</td>
+                                <td style="padding: var(--spacing-md);">$399.45</td>
+                                <td style="padding: var(--spacing-md);">$452.01</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);">
+                                <td style="padding: var(--spacing-md);"><strong>ASML</strong></td>
+                                <td style="padding: var(--spacing-md);">$1,503.31</td>
+                                <td style="padding: var(--spacing-md);">$1,499.97</td>
+                                <td style="padding: var(--spacing-md);">66</td>
+                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-$220.74</td>
+                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-0.22%</td>
+                                <td style="padding: var(--spacing-md);">$1,428.15</td>
+                                <td style="padding: var(--spacing-md);">$1,616.06</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SCREENER RESULTS -->
+            <div class="section-title" style="margin-top: var(--spacing-xl);">🎯 NX Screener Results (Top 5 Tier 3)</div>
+            <div class="card">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
+                        <thead>
+                            <tr style="background-color: var(--color-bg-tertiary);">
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Rank</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Ticker</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">RS %</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Z-Score</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Momentum</th>
+                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">1</td><td style="padding: var(--spacing-md);"><strong>MU</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">161.27</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+255.9%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">2</td><td style="padding: var(--spacing-md);"><strong>ASML</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">66.53</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+98.5%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">3</td><td style="padding: var(--spacing-md);"><strong>JNJ</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">28.28</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+38.9%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">4</td><td style="padding: var(--spacing-md);"><strong>LRCX</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">96.78</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+144.1%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
+                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">5</td><td style="padding: var(--spacing-md);"><strong>AMAT</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">91.22</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+132.8%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TRADE ENGINE STATUS -->
+            <div class="section-title" style="margin-top: var(--spacing-xl);">⚙️ NX Trade Engine Status</div>
             <div class="grid grid-3col">
                 <div class="card">
-                    <div class="card-title">Total P&L</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger); margin: var(--spacing-lg) 0;">-$730.29</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">-0.37% | 2 open positions</div>
+                    <div class="card-title">Monitor Status</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Status</span>
+                        <span style="color: var(--color-accent-success);">🟢 RUNNING</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Last Scan</span>
+                        <span>2:49 PM MT</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Uptime</span>
+                        <span>6h 45m</span>
+                    </div>
                 </div>
                 <div class="card">
-                    <div class="card-title">Monthly Return</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger); margin: var(--spacing-lg) 0;">-0.37%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">YTD: -0.37%</div>
+                    <div class="card-title">Entry Signals</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Waiting</span>
+                        <span>8 candidates</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Today's Entries</span>
+                        <span>2</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Max Open</span>
+                        <span>2/2 REACHED</span>
+                    </div>
                 </div>
                 <div class="card">
-                    <div class="card-title">Open Positions</div>
-                    <div style="margin-top: var(--spacing-lg);">
-                        <div style="margin-bottom: var(--spacing-md);">
-                            <div style="font-weight: 600;">MU</div>
-                            <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Entry: $420.47 | P&L: -$509.55</div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 600;">ASML</div>
-                            <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Entry: $1,503.31 | P&L: -$220.74</div>
-                        </div>
+                    <div class="card-title">System Health</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>IB Gateway</span>
+                        <span style="color: var(--color-accent-success);">✅ Connected</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
+                        <span>Data Feed</span>
+                        <span style="color: var(--color-accent-success);">✅ Live</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Screener</span>
+                        <span style="color: var(--color-accent-success);">✅ Running</span>
                     </div>
                 </div>
             </div>
