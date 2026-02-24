@@ -249,5 +249,36 @@
     "referralRate": 18,
     "confirmed": 78,
     "engagement": 45
+  },
+  "trading": {
+    "lastUpdate": "2026-02-24T20:58:19.240Z",
+    "totalPnL": "-730.29",
+    "totalPnLPct": "-0.37",
+    "totalValue": "198139.86",
+    "openPositions": 2,
+    "positions": [
+      {
+        "ticker": "MU",
+        "entryPrice": "420.47",
+        "currentPrice": "418.32",
+        "quantity": 237,
+        "pnl": "-509.53",
+        "pnlPct": "-0.51",
+        "value": "99141.84",
+        "stopPrice": "399.45",
+        "targetPrice": "452.01"
+      },
+      {
+        "ticker": "ASML",
+        "entryPrice": "1503.31",
+        "currentPrice": "1499.97",
+        "quantity": 66,
+        "pnl": "-220.77",
+        "pnlPct": "-0.22",
+        "value": "98998.02",
+        "stopPrice": "1428.15",
+        "targetPrice": "1616.06"
+      }
+    ]
   }
 }

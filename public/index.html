@@ -355,6 +355,30 @@
             </div>
         </div>
 
+        <!-- Trading P&L Section -->
+        <div class="section-title">📈 Active Trades — P&L Summary</div>
+        <div class="grid grid-2col" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="card">
+                <div class="card-title">Total P&L</div>
+                <div style="font-size: var(--font-size-3xl); font-weight: 600; margin-top: var(--spacing-lg);">
+                    <span id="totalPnL" style="color: var(--color-accent-success);">$0.00</span>
+                </div>
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin-top: var(--spacing-sm);">
+                    <span id="totalPnLPct">+0.00%</span> | Open Positions: <span id="openPositionCount">0</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Open Positions</div>
+                <div id="positionsList" class="list" style="margin-top: var(--spacing-lg);"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Position Details</div>
+                <div id="positionDetails" style="margin-top: var(--spacing-lg); font-size: var(--font-size-sm);"></div>
+            </div>
+        </div>
+
         <!-- AMS NX Screener Section -->
         <div class="section-title">🎯 Trading Screener — AMS NX v2</div>
         <div class="grid">
@@ -695,6 +719,9 @@
                 // Screener
                 if (data.screener) updateScreener(data.screener);
 
+                // Trading P&L
+                if (data.trading) updateTrading(data.trading);
+
                 // System Health
                 updateSystemHealth(data.system);
 
@@ -715,6 +742,54 @@
 
             } catch (error) {
                 console.error('Error loading dashboard:', error);
+            }
+        }
+
+        function updateTrading(trading) {
+            if (!trading || !trading.positions) return;
+            
+            // Update total P&L
+            const pnlValue = parseFloat(trading.totalPnL);
+            const pnlColor = pnlValue >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+            
+            document.getElementById('totalPnL').textContent = `$${pnlValue.toFixed(2)}`;
+            document.getElementById('totalPnL').style.color = pnlColor;
+            document.getElementById('totalPnLPct').textContent = `${pnlValue >= 0 ? '+' : ''}${trading.totalPnLPct}%`;
+            document.getElementById('totalPnLPct').style.color = pnlColor;
+            document.getElementById('openPositionCount').textContent = trading.openPositions;
+            
+            // Render positions list
+            const positionsList = document.getElementById('positionsList');
+            if (trading.positions && trading.positions.length > 0) {
+                positionsList.innerHTML = trading.positions.map(p => {
+                    const pnlColor = parseFloat(p.pnl) >= 0 ? 'var(--color-accent-success)' : 'var(--color-accent-danger)';
+                    return `
+                        <li class="list-item">
+                            <div>
+                                <div class="list-item-label">${p.ticker}</div>
+                                <div class="list-item-value">Entry: $${p.entryPrice} | Current: $${p.currentPrice}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: ${pnlColor}; font-weight: 600;">$${p.pnl}</div>
+                                <div style="color: var(--color-text-tertiary); font-size: var(--font-size-xs);">${p.pnlPct}%</div>
+                            </div>
+                        </li>
+                    `;
+                }).join('');
+            } else {
+                positionsList.innerHTML = '<div style="color: var(--color-text-tertiary);">No open positions</div>';
+            }
+            
+            // Render position details (stops and targets)
+            const positionDetails = document.getElementById('positionDetails');
+            if (trading.positions && trading.positions.length > 0) {
+                positionDetails.innerHTML = trading.positions.map(p => `
+                    <div style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-lg); border-bottom: 1px solid var(--color-border);">
+                        <strong>${p.ticker}</strong><br>
+                        Qty: ${p.quantity} | Value: $${p.value}<br>
+                        Stop: $${p.stopPrice} | Target: $${p.targetPrice}
+                    </div>
+                `).join('');
             }
         }
 
