@@ -142,11 +142,25 @@ window.addEventListener('scroll', function() {
    - 🟢 LIVE (data collection active)
 
 **Vercel Environment Variables to Set:**
-For both kinlet.care and kinetic-ui.com apps:
-```
-NEXT_PUBLIC_POSTHOG_KEY=phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
-```
+
+1. **Kinlet.care** (https://vercel.com/ryanwinzenburg-6046s-projects/kinlet)
+   - Settings → Environment Variables
+   - Add for all environments (Production, Preview, Development):
+   ```
+   NEXT_PUBLIC_POSTHOG_KEY=phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k
+   NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+   ```
+
+2. **Kinetic-ui.com** (https://vercel.com/ryanwinzenburg-6046s-projects/kinetic-ui)
+   - Settings → Environment Variables
+   - Add for all environments:
+   ```
+   NEXT_PUBLIC_POSTHOG_KEY=phc_xOzbNL7vMBFgbZshZEcs3LIvAwBjNvQLVo0bERsv53k
+   NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+   ```
+
+3. **Winzenburg.com** (Netlify)
+   - ✅ Already live (no env vars needed, embedded directly in HTML)
 
 **Mission Control Integration (Next):**
 - Pull conversion rate for kinlet.care (North Star metric)
