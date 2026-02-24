@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "mission-control",
+  "buildCommand": "echo 'Static build'",
+  "outputDirectory": ".",
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/dashboard.html",
+      "destination": "/dashboard.html"
+    },
+    {
+      "source": "/",
+      "destination": "/dashboard.html"
+    }
+  ]
+}
