@@ -300,27 +300,30 @@ A well-regarded agent presence can drive human traffic to my projects. Focus on 
 
 **Architecture: Start cheap, escalate only when needed. Prefer Ollama local models; fall back to cloud only when necessary.**
 
-### Available Models
+### Available Models (Feb 25, 2026)
 
-**Local (Ollama - FREE)**
-- `mistral:latest` (4.4GB) — Tier A primary
-- `neural-chat:latest` (4.1GB) — Tier A alternative
-- `gpt-oss:20b` (13.8GB) — Tier B fallback
+**Local (Ollama - FREE) - Optimized Stack**
+- `qwen2.5:14b` (8.8GB) — **Tier A PRIMARY** (extraction, JSON, classification, summaries)
+- `llama3.1:8b` (4.7GB) — **Tier A FALLBACK** (chat, light planning, rewrites)
+- `deepseek-coder:6.7b` (3.7GB) — **CODING SPECIALIST** (PineScript, small edits, tests)
+- Legacy: `mistral:latest`, `neural-chat:latest` (still available as emergency fallbacks)
+- Legacy: `gpt-oss:20b` (can use as Tier B if hardware allows)
 
-**Cloud (Funded providers)**
-- Claude Opus 4.6 — Tier C (high-stakes, complex reasoning)
-- Claude Sonnet 4 — Tier B fallback (if local insufficient)
-- Claude Haiku 3 — Tier A fallback (if Ollama unavailable)
-- GPT-5.3-Codex — Tier B (code generation)
-- xAI Grok — Tier B alternative
+**Cloud (Funded providers - ESCALATION ONLY)**
+- Claude Opus 4.6 — Tier C (high-stakes, architecture, trading execution, security)
+- Claude Sonnet 4 — Tier B (final pass, ambiguity resolution, contradiction fixes)
+- Claude Haiku 3 — Tier A (backup if all local models unavailable)
+- GPT-5.3-Codex — Tier B coding (advanced refactors if deepseek insufficient)
+- xAI Grok — Tier B (alternative reasoning perspective)
 
-### Tier Strategy
+### Tier Strategy (Optimized for Local-First)
 
 | Tier | Use Case | Primary | Fallback 1 | Fallback 2 |
 |------|----------|---------|-----------|-----------|
-| **A** (Economy) | Extract, classify, format, short Q&A, summaries <4KB | `mistral:latest` | `neural-chat:latest` | Claude Haiku 3 |
-| **B** (Balanced) | Planning, solid writing, code review, debugging, moderate decisions | `gpt-oss:20b` | Claude Sonnet 4 | GPT-5.3-Codex |
-| **C** (Premium) | Architecture, security, multi-system design, high-stakes | Claude Opus 4.6 | — | — |
+| **A** (Economy) | Extract, classify, format, short Q&A, summaries <4KB, tagging, JSON | `qwen2.5:14b` | `llama3.1:8b` | Claude Haiku 3 |
+| **A+** (Coding) | Small code edits <100 lines, PineScript tweaks, tests | `deepseek-coder:6.7b` | `qwen2.5:14b` | GPT-5.3-Codex |
+| **B** (Balanced) | Multi-step reasoning, planning, code review, debugging, strategic decisions | `gpt-oss:20b` | Claude Sonnet 4 | Claude Opus 4.6 |
+| **C** (Premium) | High-stakes: architecture, security, trading execution, incidents | Claude Opus 4.6 | — | — |
 
 ### Task Routing Rules (Hard Rules)
 
