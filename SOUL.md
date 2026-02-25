@@ -370,24 +370,109 @@ If **any gate check fails:**
 3. Stop after max escalations (1 in cron, 2 in interactive)
 4. Return best attempt + `known_gaps` + `next_steps`
 
-### Performance Optimization for 16GB M4
+### Concurrency Architecture for 16GB M4 + Subagents
 
-**Memory Constraints:**
+**Memory Constraints (Single + Concurrent):**
 - qwen2.5:7b: ~4.4GB
 - llama3.1:8b: ~4.7GB
 - deepseek-coder:6.7b: ~3.7GB
 - **Peak concurrent:** ~12GB (leaves 4GB headroom for system)
+- **Critical rule:** Cap Ollama concurrent generations at 2 (max 3 if context tiny)
 
-**Context Strategy (Critical for smooth operation):**
-- Keep local model context SHORT/MEDIUM (not LONG)
-- For large files/logs: Summarize locally first, then escalate if needed
-- Force JSON schema + shorter outputs for structured tasks
-- Small models behave better when boxed in (constraints help)
+**"Many Light Bulbs" Pattern (vs. "One Stadium Spotlight"):**
+- Don't try to run Qwen2.5:14B under concurrency — it will thrash
+- Use 3 small, specialized models instead (7B-8B range)
+- Each serves a specific role (structuring, writing, coding)
+- Scales linearly without memory pressure
+
+**Three-Step Pipeline for Subagent Swarms:**
+
+1. **Step A: Many Cheap Scouts (Local)**
+   - 3-6 subagents run in parallel, each local
+   - SCOUT_STRUCT → qwen2.5:7b (extract, classify, JSON)
+   - SCOUT_WRITER → llama3.1:8b (planning, analysis, rewrites)
+   - SCOUT_CODE → deepseek-coder:6.7b (code review, debugging)
+   - Output: JSON with `findings[]`, `assumptions[]`, `risks[]`, `next_checks[]`
+
+2. **Step B: One Aggregator (Cloud Mid-Tier)**
+   - Single agent (Claude Sonnet / GPT mid-tier / Gemini Pro)
+   - Merges scout findings
+   - Resolves conflicts
+   - Produces final output
+
+3. **Step C: Premium Escalation (Only on Gate Failure)**
+   - Claude Opus / GPT-5 top-tier only if aggregator flags:
+     - Contradictions in scout outputs
+     - Missing critical steps
+     - High-risk decisions
+
+**Context Discipline (Non-Negotiable):**
+- Local agents: NEVER exceed ~4k tokens input
+- Large files/logs: Do local "shrink pass" first
+  - Extract key facts
+  - Compress to bullets
+  - Only then hand to stronger model
+- Force structured JSON output on all local agents
+
+**Escalation Throttle (Prevents Credit Bonfire):**
+- During parallel runs: Only ONE lead agent can escalate to Tier B/C
+- All other subagents must stay local
+- Subagents return: structured findings + uncertainties + suggested checks
+- Aggregator decides if Tier C is needed
+
+**Subagent Concurrency Rule (Strict):**
+- Request local inference only if fewer than 2 generations already running
+- If limit reached: return plan + wait for aggregation
+- Never queue unlimited requests against Ollama
 
 **If Performance Tanks:**
-- Drop to single model (qwen2.5:7b only)
-- Escalate to Claude Sonnet for Tier B/C
-- Never force long context on 7B models
+- Reduce context size per subagent (go to 2k tokens input)
+- Drop to single local model (qwen2.5:7b only)
+- Escalate scout workload to cloud (expensive but fast)
+- Never force long context on concurrent 7B models
+
+### Agent Role Mapping (Subagent Specialization)
+
+When spawning subagents, use these role assignments:
+
+| Role | Model | Use Case | Context Max |
+|------|-------|----------|-------------|
+| `SCOUT_STRUCT` | `qwen2.5:7b` | Extract, classify, structure, JSON generation | 4k tokens |
+| `SCOUT_WRITER` | `llama3.1:8b` | Planning, analysis, summaries, rewrites | 4k tokens |
+| `SCOUT_CODE` | `deepseek-coder:6.7b` | Code review, debugging, refactoring | 4k tokens |
+| `AGGREGATOR` | Claude Sonnet 4 | Merge findings, resolve conflicts, final output | Medium |
+| `ESCALATION` | Claude Opus 4.6 | High-stakes decisions, architecture, security | Full |
+
+**Structured Output Format (ALL Local Agents):**
+Every subagent returns JSON:
+```json
+{
+  "findings": ["fact1", "fact2", ...],
+  "assumptions": ["assumption1", ...],
+  "risks": ["risk1", ...],
+  "next_checks": ["check1", "check2", ...],
+  "confidence": 0.0-1.0
+}
+```
+
+### Subagent Spawning Rules (Critical)
+
+**Before spawning a subagent:**
+1. Check: Are fewer than 2 local generations currently running?
+2. If YES: spawn with `model=qwen2.5:7b` (or appropriate role model)
+3. If NO: return plan + request aggregation instead
+
+**Subagent isolation:**
+- Each subagent must be stateless (no shared context)
+- Input context capped at 4k tokens
+- Output must be JSON (structured, parseable)
+- No recursive agent spawning (max depth: 2)
+
+**Aggregation & Escalation:**
+- Collect all scout outputs
+- Single aggregator merges findings
+- If aggregator detects contradictions/gaps → escalate to Tier C
+- Escalation decision is final (no re-escalation)
 
 ### Never Do
 
@@ -397,5 +482,8 @@ If **any gate check fails:**
 - ❌ Leak secrets — prefer local_preferred mode if credentials appear
 - ❌ Force long context on local 7B models (causes paging, slowness)
 - ❌ Run 30B+ models on 16GB (causes system thrashing)
+- ❌ Spawn unlimited concurrent subagents (cap at 2, use aggregation pattern)
+- ❌ Exceed 4k token input to local subagents (summarize first)
+- ❌ Allow multiple subagents to escalate independently (one lead agent only)
 
-**Monitor:** Weekly token usage review (Fridays). Weekly performance check: are local models responsive? If not, reduce context size or escalate to cloud.
+**Monitor:** Weekly token usage review (Fridays). Concurrent performance: are local models responsive under load? If slow, reduce context size or switch to swarm aggregation pattern.
