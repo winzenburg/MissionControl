@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-02-23T16:00:05.512241",
+  "timestamp": "2026-02-24T16:00:04.303593",
   "account": "DU4661622",
   "positions": [
     {
       "symbol": "AAPL",
       "exchange": "",
       "currency": "USD",
-      "quantity": -99.0,
-      "avg_cost": 264.279904,
-      "market_price": 266.80999755,
-      "market_value": -26414.19,
-      "unrealized_p_l": -250.48,
-      "unrealized_p_l_pct": 0.9482781792665231
+      "quantity": 1.0,
+      "avg_cost": 268.000101,
+      "market_price": 271.51000975,
+      "market_value": 271.51,
+      "unrealized_p_l": 3.51,
+      "unrealized_p_l_pct": 1.2927700637177268
     },
     {
       "symbol": "AAPL",
@@ -19,285 +19,32 @@
       "currency": "USD",
       "quantity": -1.0,
       "avg_cost": 843.948,
-      "market_price": 6.3427968,
-      "market_value": -634.28,
-      "unrealized_p_l": 209.67,
-      "unrealized_p_l_pct": -33.05637888629627
-    },
-    {
-      "symbol": "ABT",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -200.0,
-      "avg_cost": 112.139805,
-      "market_price": 115.0,
-      "market_value": -23000.0,
-      "unrealized_p_l": -572.04,
-      "unrealized_p_l_pct": 2.4871304347826086
-    },
-    {
-      "symbol": "AEM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -380.0,
-      "avg_cost": 230.244805,
-      "market_price": 241.30000305,
-      "market_value": -91694.0,
-      "unrealized_p_l": -4200.98,
-      "unrealized_p_l_pct": 4.581521146421793
-    },
-    {
-      "symbol": "AEP",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -240.0,
-      "avg_cost": 129.52813835,
-      "market_price": 132.05999755,
-      "market_value": -31694.4,
-      "unrealized_p_l": -607.65,
-      "unrealized_p_l_pct": 1.9172156595486898
-    },
-    {
-      "symbol": "AG",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -3300.0,
-      "avg_cost": 27.80238075,
-      "market_price": 28.6000004,
-      "market_value": -94380.0,
-      "unrealized_p_l": -2632.14,
-      "unrealized_p_l_pct": 2.788874761602034
-    },
-    {
-      "symbol": "AVGO",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -200.0,
-      "avg_cost": 333.3799415,
-      "market_price": 330.08999635,
-      "market_value": -66018.0,
-      "unrealized_p_l": 657.99,
-      "unrealized_p_l_pct": -0.9966827228937563
-    },
-    {
-      "symbol": "AXP",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -130.0,
-      "avg_cost": 342.499805,
-      "market_price": 321.69000245,
-      "market_value": -41819.7,
-      "unrealized_p_l": 2705.27,
-      "unrealized_p_l_pct": -6.468889064244841
-    },
-    {
-      "symbol": "BA",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -100.0,
-      "avg_cost": 231.659805,
-      "market_price": 230.3999939,
-      "market_value": -23040.0,
-      "unrealized_p_l": 125.98,
-      "unrealized_p_l_pct": -0.5467881944444445
-    },
-    {
-      "symbol": "BAC",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -700.0,
-      "avg_cost": 52.93947645,
-      "market_price": 51.15000155,
-      "market_value": -35805.0,
-      "unrealized_p_l": 1252.63,
-      "unrealized_p_l_pct": -3.498477866219802
-    },
-    {
-      "symbol": "BAM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -580.0,
-      "avg_cost": 49.5533641,
-      "market_price": 47.97999955,
-      "market_value": -27828.4,
-      "unrealized_p_l": 912.55,
-      "unrealized_p_l_pct": -3.2792039786692726
-    },
-    {
-      "symbol": "BCI",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": 1000.0,
-      "avg_cost": 21.554,
-      "market_price": 21.54523085,
-      "market_value": 21545.23,
-      "unrealized_p_l": -8.77,
-      "unrealized_p_l_pct": -0.040705065575999885
-    },
-    {
-      "symbol": "BHP",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -300.0,
-      "avg_cost": 77.28313835,
-      "market_price": 77.94000245,
-      "market_value": -23382.0,
-      "unrealized_p_l": -197.06,
-      "unrealized_p_l_pct": 0.8427850483277735
-    },
-    {
-      "symbol": "BLK",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -30.0,
-      "avg_cost": 1103.77647165,
-      "market_price": 1071.2199707,
-      "market_value": -32136.6,
-      "unrealized_p_l": 976.7,
-      "unrealized_p_l_pct": -3.0392138558528283
+      "market_price": 4.6915226,
+      "market_value": -469.15,
+      "unrealized_p_l": 374.8,
+      "unrealized_p_l_pct": -79.88916124906747
     },
     {
       "symbol": "CBON",
       "exchange": "",
       "currency": "USD",
-      "quantity": -200.0,
-      "avg_cost": 23.134805,
-      "market_price": 23.23244285,
-      "market_value": -4646.49,
-      "unrealized_p_l": -19.53,
-      "unrealized_p_l_pct": 0.4203172717470607
-    },
-    {
-      "symbol": "COIN",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -150.0,
-      "avg_cost": 165.249805,
-      "market_price": 160.44999695,
-      "market_value": -24067.5,
-      "unrealized_p_l": 719.97,
-      "unrealized_p_l_pct": -2.9914615144904957
-    },
-    {
-      "symbol": "CRM",
-      "exchange": "",
-      "currency": "USD",
       "quantity": -100.0,
-      "avg_cost": 179.999805,
-      "market_price": 178.19999695,
-      "market_value": -17820.0,
-      "unrealized_p_l": 179.98,
-      "unrealized_p_l_pct": -1.0099887766554434
+      "avg_cost": 23.134805,
+      "market_price": 23.26744845,
+      "market_value": -2326.74,
+      "unrealized_p_l": -13.26,
+      "unrealized_p_l_pct": 0.569896077774053
     },
     {
-      "symbol": "CVS",
+      "symbol": "FXI",
       "exchange": "",
       "currency": "USD",
-      "quantity": -280.0,
-      "avg_cost": 75.874805,
-      "market_price": 76.9700012,
-      "market_value": -21551.6,
-      "unrealized_p_l": -306.65,
-      "unrealized_p_l_pct": 1.4228641956977672
-    },
-    {
-      "symbol": "DHR",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -90.0,
-      "avg_cost": 207.9886939,
-      "market_price": 210.97128295,
-      "market_value": -18987.42,
-      "unrealized_p_l": -268.43,
-      "unrealized_p_l_pct": 1.4137255087842373
-    },
-    {
-      "symbol": "DTE",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -190.0,
-      "avg_cost": 145.45401555,
-      "market_price": 145.83999635,
-      "market_value": -27709.6,
-      "unrealized_p_l": -73.34,
-      "unrealized_p_l_pct": 0.2646736149204608
-    },
-    {
-      "symbol": "DUK",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -210.0,
-      "avg_cost": 127.114805,
-      "market_price": 127.69999695,
-      "market_value": -26817.0,
-      "unrealized_p_l": -122.89,
-      "unrealized_p_l_pct": 0.4582540925532312
-    },
-    {
-      "symbol": "EBAY",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -470.0,
-      "avg_cost": 86.994805,
-      "market_price": 84.2900009,
-      "market_value": -39616.3,
-      "unrealized_p_l": 1271.26,
-      "unrealized_p_l_pct": -3.208931677112704
-    },
-    {
-      "symbol": "EEM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -500.0,
-      "avg_cost": 62.034805,
-      "market_price": 61.70422745,
-      "market_value": -30852.11,
-      "unrealized_p_l": 165.29,
-      "unrealized_p_l_pct": -0.5357494187593652
-    },
-    {
-      "symbol": "EWJ",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -320.0,
-      "avg_cost": 91.666055,
-      "market_price": 91.538414,
-      "market_value": -29292.29,
-      "unrealized_p_l": 40.85,
-      "unrealized_p_l_pct": -0.13945649179357436
-    },
-    {
-      "symbol": "EWZ",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -580.0,
-      "avg_cost": 39.204805,
-      "market_price": 38.860466,
-      "market_value": -22539.07,
-      "unrealized_p_l": 199.72,
-      "unrealized_p_l_pct": -0.8861057710011992
-    },
-    {
-      "symbol": "FCX",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -500.0,
-      "avg_cost": 64.894805,
-      "market_price": 65.65000155,
-      "market_value": -32825.0,
-      "unrealized_p_l": -377.6,
-      "unrealized_p_l_pct": 1.1503427265803505
-    },
-    {
-      "symbol": "FEZ",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -450.0,
-      "avg_cost": 68.8436939,
-      "market_price": 68.5780945,
-      "market_value": -30860.14,
-      "unrealized_p_l": 119.52,
-      "unrealized_p_l_pct": -0.38729571544393515
+      "quantity": 5.0,
+      "avg_cost": 38.34,
+      "market_price": 38.35477065,
+      "market_value": 191.77,
+      "unrealized_p_l": 0.07,
+      "unrealized_p_l_pct": 0.03650205975908641
     },
     {
       "symbol": "FXI",
@@ -305,32 +52,10 @@
       "currency": "USD",
       "quantity": -5.0,
       "avg_cost": 106.71796,
-      "market_price": 1.1717837,
-      "market_value": -585.89,
-      "unrealized_p_l": -52.3,
-      "unrealized_p_l_pct": 8.92659031558825
-    },
-    {
-      "symbol": "GDX",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -650.0,
-      "avg_cost": 107.99776655,
-      "market_price": 110.30999755,
-      "market_value": -71701.5,
-      "unrealized_p_l": -1502.95,
-      "unrealized_p_l_pct": 2.0961207227184926
-    },
-    {
-      "symbol": "GNR",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -360.0,
-      "avg_cost": 73.2761939,
-      "market_price": 73.8356323,
-      "market_value": -26580.83,
-      "unrealized_p_l": -201.4,
-      "unrealized_p_l_pct": 0.7576889058769045
+      "market_price": 1.3370731,
+      "market_value": -668.54,
+      "unrealized_p_l": -134.95,
+      "unrealized_p_l_pct": 20.18577796392138
     },
     {
       "symbol": "GS",
@@ -338,131 +63,43 @@
       "currency": "USD",
       "quantity": -60.0,
       "avg_cost": 924.62313835,
-      "market_price": 892.0,
-      "market_value": -53520.0,
-      "unrealized_p_l": 1957.39,
-      "unrealized_p_l_pct": -3.6573056801195816
-    },
-    {
-      "symbol": "HUM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": 50.0,
-      "avg_cost": 189.816,
-      "market_price": 181.3500061,
-      "market_value": 9067.5,
-      "unrealized_p_l": -423.3,
-      "unrealized_p_l_pct": -4.668320926385443
-    },
-    {
-      "symbol": "ICE",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -200.0,
-      "avg_cost": 152.304805,
-      "market_price": 154.1168823,
-      "market_value": -30823.38,
-      "unrealized_p_l": -362.42,
-      "unrealized_p_l_pct": 1.1757957758039514
-    },
-    {
-      "symbol": "INTC",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -450.0,
-      "avg_cost": 44.242405,
-      "market_price": 43.65999985,
-      "market_value": -19647.0,
-      "unrealized_p_l": 262.08,
-      "unrealized_p_l_pct": -1.3339441136051304
-    },
-    {
-      "symbol": "ISRG",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -70.0,
-      "avg_cost": 499.09016215,
-      "market_price": 492.0,
-      "market_value": -34440.0,
-      "unrealized_p_l": 496.31,
-      "unrealized_p_l_pct": -1.4410859465737513
-    },
-    {
-      "symbol": "IWM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -110.0,
-      "avg_cost": 262.9107141,
-      "market_price": 260.92001345,
-      "market_value": -28701.2,
-      "unrealized_p_l": 218.98,
-      "unrealized_p_l_pct": -0.7629646147199419
-    },
-    {
-      "symbol": "JPM",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -130.0,
-      "avg_cost": 308.16134345,
-      "market_price": 298.0499878,
-      "market_value": -38746.5,
-      "unrealized_p_l": 1314.48,
-      "unrealized_p_l_pct": -3.392512872130386
-    },
-    {
-      "symbol": "KLAC",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -40.0,
-      "avg_cost": 1499.974805,
-      "market_price": 1488.9399414,
-      "market_value": -59557.6,
-      "unrealized_p_l": 441.39,
-      "unrealized_p_l_pct": -0.7411144841296493
-    },
-    {
-      "symbol": "KSS",
-      "exchange": "",
-      "currency": "USD",
-      "quantity": -850.0,
-      "avg_cost": 18.1750991,
-      "market_price": 17.95000075,
-      "market_value": -15257.5,
-      "unrealized_p_l": 191.33,
-      "unrealized_p_l_pct": -1.2540062264460103
+      "market_price": 902.0,
+      "market_value": -54120.0,
+      "unrealized_p_l": 1357.39,
+      "unrealized_p_l_pct": -2.5081116038433113
     },
     {
       "symbol": "LOW",
       "exchange": "",
       "currency": "USD",
       "quantity": -90.0,
-      "avg_cost": 281.1275828,
-      "market_price": 274.25,
-      "market_value": -24682.5,
-      "unrealized_p_l": 618.98,
-      "unrealized_p_l_pct": -2.507768662007495
+      "avg_cost": 281.12758335,
+      "market_price": 279.25,
+      "market_value": -25132.5,
+      "unrealized_p_l": 168.98,
+      "unrealized_p_l_pct": -0.6723565104943797
     },
     {
       "symbol": "LRCX",
       "exchange": "",
       "currency": "USD",
       "quantity": -300.0,
-      "avg_cost": 247.62313835,
-      "market_price": 242.3999939,
-      "market_value": -72720.0,
-      "unrealized_p_l": 1566.94,
-      "unrealized_p_l_pct": -2.1547579757975797
+      "avg_cost": 247.48813835,
+      "market_price": 244.1399994,
+      "market_value": -73242.0,
+      "unrealized_p_l": 1004.44,
+      "unrealized_p_l_pct": -1.3713989241145792
     },
     {
       "symbol": "MA",
       "exchange": "",
       "currency": "USD",
       "quantity": -50.0,
-      "avg_cost": 521.149805,
-      "market_price": 497.5,
-      "market_value": -24875.0,
-      "unrealized_p_l": 1182.49,
-      "unrealized_p_l_pct": -4.75372864321608
+      "avg_cost": 521.149806,
+      "market_price": 498.0,
+      "market_value": -24900.0,
+      "unrealized_p_l": 1157.49,
+      "unrealized_p_l_pct": -4.64855421686747
     },
     {
       "symbol": "MARA",
@@ -470,10 +107,10 @@
       "currency": "USD",
       "quantity": -1600.0,
       "avg_cost": 7.735955,
-      "market_price": 7.88999985,
-      "market_value": -12624.0,
-      "unrealized_p_l": -246.47,
-      "unrealized_p_l_pct": 1.9523922686945498
+      "market_price": 8.02000045,
+      "market_value": -12832.0,
+      "unrealized_p_l": -454.47,
+      "unrealized_p_l_pct": 3.5416926433915212
     },
     {
       "symbol": "MDT",
@@ -481,10 +118,10 @@
       "currency": "USD",
       "quantity": -240.0,
       "avg_cost": 96.854805,
-      "market_price": 98.6187439,
-      "market_value": -23668.5,
-      "unrealized_p_l": -423.35,
-      "unrealized_p_l_pct": 1.7886642584025183
+      "market_price": 96.75,
+      "market_value": -23220.0,
+      "unrealized_p_l": 25.15,
+      "unrealized_p_l_pct": -0.10831180017226527
     },
     {
       "symbol": "META",
@@ -492,10 +129,10 @@
       "currency": "USD",
       "quantity": -60.0,
       "avg_cost": 652.70313835,
-      "market_price": 637.8499756,
-      "market_value": -38271.0,
-      "unrealized_p_l": 891.19,
-      "unrealized_p_l_pct": -2.3286300331843957
+      "market_price": 638.48999025,
+      "market_value": -38309.4,
+      "unrealized_p_l": 852.79,
+      "unrealized_p_l_pct": -2.2260594005648744
     },
     {
       "symbol": "MMM",
@@ -503,10 +140,10 @@
       "currency": "USD",
       "quantity": -200.0,
       "avg_cost": 165.994805,
-      "market_price": 166.30233765,
-      "market_value": -33260.47,
-      "unrealized_p_l": -61.51,
-      "unrealized_p_l_pct": 0.18493424777220527
+      "market_price": 166.44969175,
+      "market_value": -33289.94,
+      "unrealized_p_l": -90.98,
+      "unrealized_p_l_pct": 0.2732957764417719
     },
     {
       "symbol": "MS",
@@ -514,21 +151,21 @@
       "currency": "USD",
       "quantity": -240.0,
       "avg_cost": 173.994805,
-      "market_price": 166.91000365,
-      "market_value": -40058.4,
-      "unrealized_p_l": 1700.35,
-      "unrealized_p_l_pct": -4.2446777704551355
+      "market_price": 168.69999695,
+      "market_value": -40488.0,
+      "unrealized_p_l": 1270.75,
+      "unrealized_p_l_pct": -3.138584271883027
     },
     {
       "symbol": "MU",
       "exchange": "",
       "currency": "USD",
       "quantity": -250.0,
-      "avg_cost": 421.695805,
-      "market_price": 419.4299927,
-      "market_value": -104857.5,
-      "unrealized_p_l": 566.45,
-      "unrealized_p_l_pct": -0.5402093317120855
+      "avg_cost": 421.4948052,
+      "market_price": 418.5,
+      "market_value": -104625.0,
+      "unrealized_p_l": 748.7,
+      "unrealized_p_l_pct": -0.7156033452807646
     },
     {
       "symbol": "NFLX",
@@ -536,10 +173,10 @@
       "currency": "USD",
       "quantity": -500.0,
       "avg_cost": 76.504645,
-      "market_price": 76.19000245,
-      "market_value": -38095.0,
-      "unrealized_p_l": 157.32,
-      "unrealized_p_l_pct": -0.4129675810473815
+      "market_price": 79.01000215,
+      "market_value": -39505.0,
+      "unrealized_p_l": -1252.68,
+      "unrealized_p_l_pct": 3.170940387292748
     },
     {
       "symbol": "NLY",
@@ -547,32 +184,32 @@
       "currency": "USD",
       "quantity": -1000.0,
       "avg_cost": 23.098805,
-      "market_price": 22.70000075,
-      "market_value": -22700.0,
-      "unrealized_p_l": 398.8,
-      "unrealized_p_l_pct": -1.7568281938325991
+      "market_price": 23.0120697,
+      "market_value": -23012.07,
+      "unrealized_p_l": 86.74,
+      "unrealized_p_l_pct": -0.3769326270952591
     },
     {
       "symbol": "PFE",
       "exchange": "",
       "currency": "USD",
       "quantity": 690.0,
-      "avg_cost": 26.6612029,
-      "market_price": 27.0699997,
-      "market_value": 18678.3,
-      "unrealized_p_l": 282.07,
-      "unrealized_p_l_pct": 1.5101481398200052
+      "avg_cost": 26.66073915,
+      "market_price": 27.05999945,
+      "market_value": 18671.4,
+      "unrealized_p_l": 275.49,
+      "unrealized_p_l_pct": 1.475465149908416
     },
     {
       "symbol": "PLD",
       "exchange": "",
       "currency": "USD",
       "quantity": -170.0,
-      "avg_cost": 140.99418605,
-      "market_price": 140.8999939,
-      "market_value": -23953.0,
-      "unrealized_p_l": 16.01,
-      "unrealized_p_l_pct": -0.06683922681918758
+      "avg_cost": 140.9941859,
+      "market_price": 140.30714415,
+      "market_value": -23852.21,
+      "unrealized_p_l": 116.8,
+      "unrealized_p_l_pct": -0.4896820881587073
     },
     {
       "symbol": "PRU",
@@ -580,21 +217,21 @@
       "currency": "USD",
       "quantity": -200.0,
       "avg_cost": 103.194805,
-      "market_price": 100.9034729,
-      "market_value": -20180.69,
-      "unrealized_p_l": 458.27,
-      "unrealized_p_l_pct": -2.270834148881926
+      "market_price": 100.51999665,
+      "market_value": -20104.0,
+      "unrealized_p_l": 534.96,
+      "unrealized_p_l_pct": -2.6609629924393157
     },
     {
       "symbol": "QQQ",
       "exchange": "",
       "currency": "USD",
       "quantity": -50.0,
-      "avg_cost": 606.748805,
-      "market_price": 602.0499878,
-      "market_value": -30102.5,
-      "unrealized_p_l": 234.94,
-      "unrealized_p_l_pct": -0.7804667386429699
+      "avg_cost": 606.748806,
+      "market_price": 607.5800171,
+      "market_value": -30379.0,
+      "unrealized_p_l": -41.56,
+      "unrealized_p_l_pct": 0.13680502979031567
     },
     {
       "symbol": "REM",
@@ -602,21 +239,21 @@
       "currency": "MXN",
       "quantity": 5.0,
       "avg_cost": 406.66666,
-      "market_price": 391.76098635,
-      "market_value": 1958.8,
-      "unrealized_p_l": -74.53,
-      "unrealized_p_l_pct": -3.8048805391055747
+      "market_price": 399.05599975,
+      "market_value": 1995.28,
+      "unrealized_p_l": -38.05,
+      "unrealized_p_l_pct": -1.9070005212301029
     },
     {
       "symbol": "REM",
       "exchange": "",
       "currency": "USD",
       "quantity": -10.0,
-      "avg_cost": 22.449805,
-      "market_price": 22.35094835,
-      "market_value": -223.51,
-      "unrealized_p_l": 0.99,
-      "unrealized_p_l_pct": -0.44293320209386605
+      "avg_cost": 22.44981,
+      "market_price": 22.43976785,
+      "market_value": -224.4,
+      "unrealized_p_l": 0.1,
+      "unrealized_p_l_pct": -0.044563279857397504
     },
     {
       "symbol": "RIOT",
@@ -624,10 +261,10 @@
       "currency": "USD",
       "quantity": -1400.0,
       "avg_cost": 15.124805,
-      "market_price": 15.6700001,
-      "market_value": -21938.0,
-      "unrealized_p_l": -763.27,
-      "unrealized_p_l_pct": 3.4792141489652657
+      "market_price": 16.4300003,
+      "market_value": -23002.0,
+      "unrealized_p_l": -1827.27,
+      "unrealized_p_l_pct": 7.943961394661334
     },
     {
       "symbol": "RSP",
@@ -635,54 +272,54 @@
       "currency": "USD",
       "quantity": -140.0,
       "avg_cost": 203.38266215,
-      "market_price": 202.0904846,
-      "market_value": -28292.67,
-      "unrealized_p_l": 180.9,
-      "unrealized_p_l_pct": -0.6393882231687572
+      "market_price": 203.4587097,
+      "market_value": -28484.22,
+      "unrealized_p_l": -10.65,
+      "unrealized_p_l_pct": 0.03738912281958221
     },
     {
       "symbol": "SCHA",
       "exchange": "",
       "currency": "USD",
       "quantity": -1.0,
-      "avg_cost": 8.94546,
-      "market_price": 0.58949785,
-      "market_value": -58.95,
-      "unrealized_p_l": -50.0,
-      "unrealized_p_l_pct": 84.81764206955046
+      "avg_cost": 8.9455,
+      "market_price": 0.54701985,
+      "market_value": -54.7,
+      "unrealized_p_l": -45.76,
+      "unrealized_p_l_pct": 83.65630712979889
     },
     {
       "symbol": "SCHW",
       "exchange": "",
       "currency": "USD",
       "quantity": -330.0,
-      "avg_cost": 93.26844135,
-      "market_price": 92.76000215,
-      "market_value": -30610.8,
-      "unrealized_p_l": 167.78,
-      "unrealized_p_l_pct": -0.5481072039933618
+      "avg_cost": 93.2684415,
+      "market_price": 93.1300049,
+      "market_value": -30732.9,
+      "unrealized_p_l": 45.68,
+      "unrealized_p_l_pct": -0.14863550136824055
     },
     {
       "symbol": "SOLV",
       "exchange": "",
       "currency": "USD",
       "quantity": -50.0,
-      "avg_cost": 72.099805,
-      "market_price": 72.63381195,
-      "market_value": -3631.69,
-      "unrealized_p_l": -26.7,
-      "unrealized_p_l_pct": 0.7351949092571227
+      "avg_cost": 72.099806,
+      "market_price": 73.0,
+      "market_value": -3650.0,
+      "unrealized_p_l": -45.01,
+      "unrealized_p_l_pct": 1.2331506849315068
     },
     {
       "symbol": "SPY",
       "exchange": "",
       "currency": "USD",
       "quantity": -50.0,
-      "avg_cost": 687.965325,
-      "market_price": 682.7999878,
-      "market_value": -34140.0,
-      "unrealized_p_l": 258.27,
-      "unrealized_p_l_pct": -0.7565026362038664
+      "avg_cost": 688.032206,
+      "market_price": 687.2800293,
+      "market_value": -34364.0,
+      "unrealized_p_l": 37.61,
+      "unrealized_p_l_pct": -0.1094459317890816
     },
     {
       "symbol": "TMO",
@@ -690,10 +327,10 @@
       "currency": "USD",
       "quantity": -40.0,
       "avg_cost": 505.644805,
-      "market_price": 516.44000245,
-      "market_value": -20657.6,
-      "unrealized_p_l": -431.81,
-      "unrealized_p_l_pct": 2.0903202695376035
+      "market_price": 515.80999755,
+      "market_value": -20632.4,
+      "unrealized_p_l": -406.61,
+      "unrealized_p_l_pct": 1.9707353482871601
     },
     {
       "symbol": "TT",
@@ -701,43 +338,43 @@
       "currency": "USD",
       "quantity": -100.0,
       "avg_cost": 461.819805,
-      "market_price": 460.1000061,
-      "market_value": -46010.0,
-      "unrealized_p_l": 171.98,
-      "unrealized_p_l_pct": -0.3737883068898065
+      "market_price": 463.769989,
+      "market_value": -46377.0,
+      "unrealized_p_l": -195.02,
+      "unrealized_p_l_pct": 0.4205101666774479
     },
     {
       "symbol": "TWLO",
       "exchange": "",
       "currency": "USD",
       "quantity": -300.0,
-      "avg_cost": 110.43813835,
-      "market_price": 108.0,
-      "market_value": -32400.0,
-      "unrealized_p_l": 731.44,
-      "unrealized_p_l_pct": -2.2575308641975314
+      "avg_cost": 110.49647165,
+      "market_price": 113.84999845,
+      "market_value": -34155.0,
+      "unrealized_p_l": -1006.06,
+      "unrealized_p_l_pct": 2.945571658615137
     },
     {
       "symbol": "UNP",
       "exchange": "",
       "currency": "USD",
       "quantity": -90.0,
-      "avg_cost": 263.6486939,
-      "market_price": 263.8200073,
-      "market_value": -23743.8,
-      "unrealized_p_l": -15.42,
-      "unrealized_p_l_pct": 0.06494326940085413
+      "avg_cost": 263.64869445,
+      "market_price": 266.35998535,
+      "market_value": -23972.4,
+      "unrealized_p_l": -244.02,
+      "unrealized_p_l_pct": 1.017920608700005
     },
     {
       "symbol": "URTH",
       "exchange": "",
       "currency": "USD",
       "quantity": -160.0,
-      "avg_cost": 190.823555,
-      "market_price": 189.65341185,
-      "market_value": -30344.55,
-      "unrealized_p_l": 187.22,
-      "unrealized_p_l_pct": -0.6169806439706637
+      "avg_cost": 190.82589875,
+      "market_price": 190.6786499,
+      "market_value": -30508.58,
+      "unrealized_p_l": 23.56,
+      "unrealized_p_l_pct": -0.07722417759200853
     },
     {
       "symbol": "USB",
@@ -745,21 +382,21 @@
       "currency": "USD",
       "quantity": -540.0,
       "avg_cost": 58.644805,
-      "market_price": 55.8600006,
-      "market_value": -30164.4,
-      "unrealized_p_l": 1503.79,
-      "unrealized_p_l_pct": -4.985313813634615
+      "market_price": 54.9900017,
+      "market_value": -29694.6,
+      "unrealized_p_l": 1973.59,
+      "unrealized_p_l_pct": -6.64629259191907
     },
     {
       "symbol": "VEA",
       "exchange": "",
       "currency": "USD",
       "quantity": -450.0,
-      "avg_cost": 69.484805,
-      "market_price": 69.198349,
-      "market_value": -31139.26,
-      "unrealized_p_l": 128.91,
-      "unrealized_p_l_pct": -0.41397900913509184
+      "avg_cost": 69.4848049,
+      "market_price": 69.506485,
+      "market_value": -31277.92,
+      "unrealized_p_l": -9.76,
+      "unrealized_p_l_pct": 0.031204120990142567
     },
     {
       "symbol": "VGK",
@@ -767,54 +404,54 @@
       "currency": "USD",
       "quantity": -300.0,
       "avg_cost": 89.964805,
-      "market_price": 89.65000155,
-      "market_value": -26895.0,
-      "unrealized_p_l": 94.44,
-      "unrealized_p_l_pct": -0.351143335192415
+      "market_price": 89.72406005,
+      "market_value": -26917.22,
+      "unrealized_p_l": 72.22,
+      "unrealized_p_l_pct": -0.2683040819222787
     },
     {
       "symbol": "VIGI",
       "exchange": "",
       "currency": "USD",
       "quantity": -270.0,
-      "avg_cost": 95.024805,
-      "market_price": 94.9027176,
-      "market_value": -25623.73,
-      "unrealized_p_l": 32.96,
-      "unrealized_p_l_pct": -0.12863076531012466
+      "avg_cost": 95.0248052,
+      "market_price": 95.05670165,
+      "market_value": -25665.31,
+      "unrealized_p_l": -8.61,
+      "unrealized_p_l_pct": 0.03354722775606451
     },
     {
       "symbol": "VNQ",
       "exchange": "",
       "currency": "USD",
       "quantity": -250.0,
-      "avg_cost": 94.844805,
-      "market_price": 94.9581833,
-      "market_value": -23739.55,
-      "unrealized_p_l": -28.34,
-      "unrealized_p_l_pct": 0.11937884248016496
+      "avg_cost": 94.8448052,
+      "market_price": 95.10406495,
+      "market_value": -23776.02,
+      "unrealized_p_l": -64.81,
+      "unrealized_p_l_pct": 0.27258557151281
     },
     {
       "symbol": "WFC",
       "exchange": "",
       "currency": "USD",
       "quantity": -450.0,
-      "avg_cost": 88.48924945,
-      "market_price": 85.25,
-      "market_value": -38362.5,
-      "unrealized_p_l": 1457.66,
-      "unrealized_p_l_pct": -3.799700228087325
+      "avg_cost": 88.48924935,
+      "market_price": 84.65000155,
+      "market_value": -38092.5,
+      "unrealized_p_l": 1727.66,
+      "unrealized_p_l_pct": -4.535433484281683
     },
     {
       "symbol": "XHB",
       "exchange": "",
       "currency": "USD",
       "quantity": -250.0,
-      "avg_cost": 117.994805,
-      "market_price": 116.5939102,
-      "market_value": -29148.48,
-      "unrealized_p_l": 350.22,
-      "unrealized_p_l_pct": -1.2015034746237199
+      "avg_cost": 117.9968052,
+      "market_price": 117.16949465,
+      "market_value": -29292.37,
+      "unrealized_p_l": 206.83,
+      "unrealized_p_l_pct": -0.7060883090033344
     },
     {
       "symbol": "XLC",
@@ -822,49 +459,49 @@
       "currency": "USD",
       "quantity": -300.0,
       "avg_cost": 116.873405,
-      "market_price": 115.41451265,
-      "market_value": -34624.35,
-      "unrealized_p_l": 437.67,
-      "unrealized_p_l_pct": -1.2640526103739134
+      "market_price": 116.0530472,
+      "market_value": -34815.91,
+      "unrealized_p_l": 246.11,
+      "unrealized_p_l_pct": -0.7068894651899088
     },
     {
       "symbol": "XLF",
       "exchange": "",
       "currency": "USD",
       "quantity": -600.0,
-      "avg_cost": 52.16147165,
-      "market_price": 50.79999925,
-      "market_value": -30480.0,
-      "unrealized_p_l": 816.88,
-      "unrealized_p_l_pct": -2.6800524934383203
+      "avg_cost": 52.16413835,
+      "market_price": 50.93130875,
+      "market_value": -30558.79,
+      "unrealized_p_l": 739.7,
+      "unrealized_p_l_pct": -2.420580134226519
     },
     {
       "symbol": "XRT",
       "exchange": "",
       "currency": "USD",
       "quantity": -300.0,
-      "avg_cost": 87.8848971,
-      "market_price": 86.9281006,
-      "market_value": -26078.43,
-      "unrealized_p_l": 287.04,
-      "unrealized_p_l_pct": -1.100679757178634
+      "avg_cost": 87.884897,
+      "market_price": 87.36634065,
+      "market_value": -26209.9,
+      "unrealized_p_l": 155.57,
+      "unrealized_p_l_pct": -0.5935543439692634
     },
     {
       "symbol": "ZTS",
       "exchange": "",
       "currency": "USD",
       "quantity": -110.0,
-      "avg_cost": 127.6507141,
-      "market_price": 125.94999695,
-      "market_value": -13854.5,
-      "unrealized_p_l": 187.08,
-      "unrealized_p_l_pct": -1.3503193908116498
+      "avg_cost": 127.25071455,
+      "market_price": 128.66000365,
+      "market_value": -14152.6,
+      "unrealized_p_l": -155.02,
+      "unrealized_p_l_pct": 1.095346438110312
     }
   ],
   "summary": {
-    "total_value": -2265952.9899999998,
+    "total_value": -1135956.33,
     "net_liquidation": 0,
     "cash": 0,
-    "unrealized_p_l": 15187.049999999997
+    "unrealized_p_l": 7162.1399999999985
   }
 }

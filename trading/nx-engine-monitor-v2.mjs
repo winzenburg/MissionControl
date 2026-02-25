@@ -47,46 +47,95 @@ class PositionManager {
     fs.writeFileSync(POSITIONS_LOG, JSON.stringify(this.positions, null, 2));
   }
 
-  openPosition(ticker, entryPrice, quantity, stopPrice, targetPrice) {
+  openPosition(ticker, entryPrice, quantity, stopPrice, riskPerShare) {
     /**
-     * Open a new position
+     * PHASE 1: Open position with trailing stop framework
+     * - No predetermined profit target (targetPrice removed)
+     * - Track maxPrice for trailing stop
+     * - Track partialExited flag for 2R partial logic
      */
     if (this.positions[ticker]) {
       return null; // Position already exists
     }
 
+    const partialTarget = entryPrice + (riskPerShare * 2); // 2R target for 20-25% partial
+
     this.positions[ticker] = {
       ticker,
       entryPrice,
       quantity,
+      quantityRemaining: quantity, // Track remaining shares after partial exit
       stopPrice,
-      targetPrice,
+      partialTarget, // 2R target for 20-25% partial exit only
       openedAt: new Date().toISOString(),
       status: 'OPEN',
+      maxPrice: entryPrice, // For trailing stop calculation
+      partialExited: false, // Flag: whether 20-25% has been taken at 2R
+      trailStopPercent: 0.05, // 5% trailing stop (Covel chandelier equivalent)
     };
 
     this.savePositions();
     return this.positions[ticker];
   }
 
+  partialExit(ticker, exitPrice, partialPct = 0.25) {
+    /**
+     * PHASE 1: Take partial exit (20-25%) at 2R, keep rest trailing
+     */
+    if (!this.positions[ticker]) {
+      return null;
+    }
+
+    const pos = this.positions[ticker];
+    const sharesToClose = Math.floor(pos.quantity * partialPct);
+    const partialPnl = (exitPrice - pos.entryPrice) * sharesToClose;
+    const partialPnlPct = ((exitPrice - pos.entryPrice) / pos.entryPrice) * 100;
+
+    pos.partialExited = true;
+    pos.quantityRemaining = pos.quantity - sharesToClose;
+    pos.partialExitPrice = exitPrice;
+    pos.partialExitAt = new Date().toISOString();
+    pos.partialPnl = partialPnl;
+    pos.partialPnlPct = partialPnlPct;
+    // Status remains OPEN with trailing stop active on remaining position
+
+    this.savePositions();
+
+    return {
+      ticker,
+      sharesToClose,
+      quantityRemaining: pos.quantityRemaining,
+      partialExitPrice: exitPrice,
+      partialPnl,
+      partialPnlPct,
+    };
+  }
+
   closePosition(ticker, exitPrice, exitReason) {
     /**
-     * Close a position
+     * Close a position (full exit)
      */
     if (!this.positions[ticker]) {
       return null; // No position to close
     }
 
     const pos = this.positions[ticker];
-    const pnl = (exitPrice - pos.entryPrice) * pos.quantity;
+    const quantity = pos.quantityRemaining || pos.quantity;
+    const pnl = (exitPrice - pos.entryPrice) * quantity;
     const pnlPct = ((exitPrice - pos.entryPrice) / pos.entryPrice) * 100;
+
+    // Include partial exit P&L in final P&L if applicable
+    const totalPnl = pnl + (pos.partialPnl || 0);
+    const totalPnlPct = pos.partialExited 
+      ? ((pos.partialPnl + pnl) / (pos.entryPrice * pos.quantity)) * 100
+      : pnlPct;
 
     pos.exitPrice = exitPrice;
     pos.exitReason = exitReason;
     pos.closedAt = new Date().toISOString();
     pos.status = 'CLOSED';
-    pos.pnl = pnl;
-    pos.pnlPct = pnlPct;
+    pos.pnl = totalPnl;
+    pos.pnlPct = totalPnlPct;
 
     this.savePositions();
     
@@ -108,7 +157,7 @@ class PositionManager {
 
   checkStopLoss(ticker, currentPrice) {
     /**
-     * Check if stop loss is hit
+     * Check if stop loss is hit on full position
      */
     const pos = this.getPosition(ticker);
     if (!pos || pos.status !== 'OPEN') return null;
@@ -120,15 +169,39 @@ class PositionManager {
     return { triggered: false };
   }
 
-  checkTakeProfit(ticker, currentPrice) {
+  checkPartialExit(ticker, currentPrice) {
     /**
-     * Check if take profit is hit
+     * PHASE 1: Check if 2R partial exit target is hit
+     * Exits 20-25% of position at 2R, then trails remaining 75-80%
+     */
+    const pos = this.getPosition(ticker);
+    if (!pos || pos.status !== 'OPEN' || pos.partialExited) return null;
+
+    if (currentPrice >= pos.partialTarget) {
+      return { triggered: true, reason: 'PARTIAL_2R', price: currentPrice };
+    }
+
+    return { triggered: false };
+  }
+
+  checkTrailingStop(ticker, currentPrice) {
+    /**
+     * PHASE 1: Check if trailing stop is hit on remaining position
+     * Trails stop at 5% below highest price since entry
      */
     const pos = this.getPosition(ticker);
     if (!pos || pos.status !== 'OPEN') return null;
 
-    if (currentPrice >= pos.targetPrice) {
-      return { triggered: true, reason: 'TAKE_PROFIT', price: currentPrice };
+    // Update max price
+    if (currentPrice > pos.maxPrice) {
+      pos.maxPrice = currentPrice;
+    }
+
+    // Calculate trailing stop
+    const trailStop = pos.maxPrice * (1 - pos.trailStopPercent);
+
+    if (currentPrice <= trailStop) {
+      return { triggered: true, reason: 'TRAILING_STOP', price: currentPrice, trailStop };
     }
 
     return { triggered: false };
@@ -213,9 +286,10 @@ class NXTradeEngine {
 // ===================================================================
 
 class RiskManager {
-  constructor(accountValue = 1000000) {
+  constructor(accountValue = 1000000, maxRiskPct = 0.02) {
     this.accountValue = accountValue;
-    this.maxLossPerTrade = accountValue * 0.005; // 0.5%
+    this.maxRiskPct = maxRiskPct; // PHASE 1: Explicit per-trade risk percentage
+    this.maxLossPerTrade = accountValue * maxRiskPct;
     this.maxConcurrentPositions = 2;
   }
 
@@ -224,11 +298,22 @@ class RiskManager {
   }
 
   calculatePositionSize(entryPrice, stopPrice) {
+    /**
+     * PHASE 1 - Position sizing formula from Covel framework:
+     * riskPerShare = entryPrice - initialStop
+     * maxShares = (accountEquity * maxRiskPct) / riskPerShare
+     */
     const riskPerShare = Math.abs(entryPrice - stopPrice);
-    if (riskPerShare <= 0) return 0;
+    if (riskPerShare <= 0) return { shares: 0, risk: 0, display: 'N/A' };
 
     const maxShares = Math.floor(this.maxLossPerTrade / riskPerShare);
-    return Math.max(maxShares, 1);
+    const displayStr = maxShares <= 0 ? 'Position too small' : `${maxShares} shares @ ${this.maxRiskPct * 100}% risk`;
+    
+    return { 
+      shares: Math.max(maxShares, 1), 
+      risk: riskPerShare,
+      display: displayStr
+    };
   }
 }
 
@@ -292,13 +377,14 @@ async function monitorCandidates() {
 
   // Initialize managers
   const positionMgr = new PositionManager();
-  const riskMgr = new RiskManager();
+  const riskMgr = new RiskManager(1000000, 0.02); // PHASE 1: 2% per-trade risk
 
   console.log(`Monitoring ${candidates.length} candidates...`);
-  console.log(`Open positions: ${positionMgr.getOpenPositions().length}\n`);
+  console.log(`Open positions: ${positionMgr.getOpenPositions().length}`);
+  console.log(`Max risk per trade: ${(riskMgr.maxRiskPct * 100).toFixed(1)}%\n`);
 
   // Scan each candidate
-  let entries = 0, exits = 0;
+  let entries = 0, exits = 0, partials = 0;
 
   for (const candidate of candidates) {
     const ticker = candidate.symbol;
@@ -314,20 +400,32 @@ async function monitorCandidates() {
     if (positionMgr.hasOpenPosition(ticker)) {
       const pos = positionMgr.getPosition(ticker);
 
-      // Check stop loss
+      // Check stop loss (full exit)
       const stopCheck = positionMgr.checkStopLoss(ticker, currentPrice);
       if (stopCheck.triggered) {
         const closed = positionMgr.closePosition(ticker, currentPrice, 'STOP_LOSS_HIT');
-        console.log(`  🛑 ${ticker}: CLOSED (Stop Loss) | PnL: ${closed.pnlPct.toFixed(2)}%`);
+        console.log(`  🛑 ${ticker}: CLOSED (Stop Loss) | Total PnL: ${closed.pnlPct.toFixed(2)}%`);
         exits++;
         continue;
       }
 
-      // Check take profit
-      const tpCheck = positionMgr.checkTakeProfit(ticker, currentPrice);
-      if (tpCheck.triggered) {
-        const closed = positionMgr.closePosition(ticker, currentPrice, 'TAKE_PROFIT_HIT');
-        console.log(`  ✅ ${ticker}: CLOSED (Take Profit) | PnL: ${closed.pnlPct.toFixed(2)}%`);
+      // PHASE 1: Check for partial exit at 2R (if not already taken)
+      if (!pos.partialExited) {
+        const partialCheck = positionMgr.checkPartialExit(ticker, currentPrice);
+        if (partialCheck.triggered) {
+          const partial = positionMgr.partialExit(ticker, currentPrice, 0.25);
+          console.log(`  💰 ${ticker}: PARTIAL EXIT (2R) | Sold: ${partial.sharesToClose} shares @ ${partial.partialExitPrice.toFixed(2)} | Remaining: ${partial.quantityRemaining} shares | Partial PnL: ${partial.partialPnlPct.toFixed(2)}%`);
+          partials++;
+          // Position stays open, trailing stop active on remaining
+        }
+      }
+
+      // PHASE 1: Check trailing stop on remaining position
+      const trailCheck = positionMgr.checkTrailingStop(ticker, currentPrice);
+      if (trailCheck.triggered) {
+        const closed = positionMgr.closePosition(ticker, currentPrice, 'TRAILING_STOP');
+        const finalPnl = pos.partialExited ? closed.pnlPct : closed.pnlPct;
+        console.log(`  📉 ${ticker}: CLOSED (Trailing Stop) | Trail Level: ${trailCheck.trailStop.toFixed(2)} | Total PnL: ${finalPnl.toFixed(2)}%`);
         exits++;
         continue;
       }
@@ -335,7 +433,7 @@ async function monitorCandidates() {
       // Check exit signal
       if (signal.type === 'EXIT') {
         const closed = positionMgr.closePosition(ticker, currentPrice, 'SIGNAL_EXIT');
-        console.log(`  📉 ${ticker}: CLOSED (Exit Signal) | PnL: ${closed.pnlPct.toFixed(2)}%`);
+        console.log(`  🔴 ${ticker}: CLOSED (Exit Signal) | Total PnL: ${closed.pnlPct.toFixed(2)}%`);
         exits++;
         continue;
       }
@@ -355,22 +453,27 @@ async function monitorCandidates() {
         continue;
       }
 
-      // Calculate position size
+      // PHASE 1: Calculate position size per Covel framework
       const stopPrice = currentPrice * 0.95; // 5% stop
-      const quantity = riskMgr.calculatePositionSize(currentPrice, stopPrice);
-      const targetPrice = currentPrice * 1.075; // 1.5R target (1.5 * 5%)
+      const riskPerShare = currentPrice - stopPrice;
+      const sizing = riskMgr.calculatePositionSize(currentPrice, stopPrice);
+      const quantity = sizing.shares;
 
-      // Open position
-      const pos = positionMgr.openPosition(ticker, currentPrice, quantity, stopPrice, targetPrice);
+      // Open position with trailing stop (no TP1/TP2)
+      const pos = positionMgr.openPosition(ticker, currentPrice, quantity, stopPrice, riskPerShare);
       if (pos) {
-        console.log(`  🎯 ${ticker}: OPENED | ${quantity} shares @ ${currentPrice.toFixed(2)} | Stop: ${stopPrice.toFixed(2)} | Target: ${targetPrice.toFixed(2)}`);
+        console.log(`  🎯 ${ticker}: OPENED | ${quantity} shares @ ${currentPrice.toFixed(2)}`);
+        console.log(`     ├─ Stop: ${stopPrice.toFixed(2)} | Risk per share: $${riskPerShare.toFixed(2)}`);
+        console.log(`     ├─ Partial target (2R): ${pos.partialTarget.toFixed(2)} (sell 25% here)`);
+        console.log(`     └─ Trail: 5% below high-water mark (no predetermined profit target)`);
+        console.log(`     [MAX SHARES @ 2% RISK: ${sizing.display}]`);
         entries++;
       }
     }
   }
 
   console.log(`\n${'='.repeat(60)}`);
-  console.log(`Entries: ${entries} | Exits: ${exits} | Open: ${positionMgr.getOpenPositions().length}`);
+  console.log(`Entries: ${entries} | Partials: ${partials} | Exits: ${exits} | Open: ${positionMgr.getOpenPositions().length}`);
   console.log(`${'='.repeat(60)}\n`);
 }
 
