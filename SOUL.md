@@ -302,12 +302,13 @@ A well-regarded agent presence can drive human traffic to my projects. Focus on 
 
 ### Available Models (Feb 25, 2026)
 
-**Local (Ollama - FREE) - Optimized Stack**
-- `qwen2.5:14b` (8.8GB) — **Tier A PRIMARY** (extraction, JSON, classification, summaries)
-- `llama3.1:8b` (4.7GB) — **Tier A FALLBACK** (chat, light planning, rewrites)
-- `deepseek-coder:6.7b` (3.7GB) — **CODING SPECIALIST** (PineScript, small edits, tests)
-- Legacy: `mistral:latest`, `neural-chat:latest` (still available as emergency fallbacks)
-- Legacy: `gpt-oss:20b` (can use as Tier B if hardware allows)
+**Local (Ollama - FREE) - Optimized Stack for 16GB M4**
+- `qwen2.5:7b` (4.4GB) — **Tier A PRIMARY** (extraction, JSON, classification, summaries, structured output)
+- `llama3.1:8b` (4.7GB) — **Tier A FALLBACK** (chat, light planning, rewrites, conversational quality)
+- `deepseek-coder:6.7b` (3.7GB) — **CODING SPECIALIST** (refactors, tests, code review, PineScript)
+- **Total RAM at peak:** ~12GB (leaves 4GB for system + headroom)
+- **Context strategy:** Keep short/medium for local models; summarize long logs first before escalating
+- Legacy: `mistral:latest`, `neural-chat:latest`, `gpt-oss:20b` (available as emergency fallbacks if needed)
 
 **Cloud (Funded providers - ESCALATION ONLY)**
 - Claude Opus 4.6 — Tier C (high-stakes, architecture, trading execution, security)
@@ -320,8 +321,8 @@ A well-regarded agent presence can drive human traffic to my projects. Focus on 
 
 | Tier | Use Case | Primary | Fallback 1 | Fallback 2 |
 |------|----------|---------|-----------|-----------|
-| **A** (Economy) | Extract, classify, format, short Q&A, summaries <4KB, tagging, JSON | `qwen2.5:14b` | `llama3.1:8b` | Claude Haiku 3 |
-| **A+** (Coding) | Small code edits <100 lines, PineScript tweaks, tests | `deepseek-coder:6.7b` | `qwen2.5:14b` | GPT-5.3-Codex |
+| **A** (Economy) | Extract, classify, format, short Q&A, summaries <4KB, tagging, JSON | `qwen2.5:7b` | `llama3.1:8b` | Claude Haiku 3 |
+| **A+** (Coding) | Small code edits <100 lines, PineScript tweaks, tests | `deepseek-coder:6.7b` | `qwen2.5:7b` | GPT-5.3-Codex |
 | **B** (Balanced) | Multi-step reasoning, planning, code review, debugging, strategic decisions | `gpt-oss:20b` | Claude Sonnet 4 | Claude Opus 4.6 |
 | **C** (Premium) | High-stakes: architecture, security, trading execution, incidents | Claude Opus 4.6 | — | — |
 
@@ -369,11 +370,32 @@ If **any gate check fails:**
 3. Stop after max escalations (1 in cron, 2 in interactive)
 4. Return best attempt + `known_gaps` + `next_steps`
 
+### Performance Optimization for 16GB M4
+
+**Memory Constraints:**
+- qwen2.5:7b: ~4.4GB
+- llama3.1:8b: ~4.7GB
+- deepseek-coder:6.7b: ~3.7GB
+- **Peak concurrent:** ~12GB (leaves 4GB headroom for system)
+
+**Context Strategy (Critical for smooth operation):**
+- Keep local model context SHORT/MEDIUM (not LONG)
+- For large files/logs: Summarize locally first, then escalate if needed
+- Force JSON schema + shorter outputs for structured tasks
+- Small models behave better when boxed in (constraints help)
+
+**If Performance Tanks:**
+- Drop to single model (qwen2.5:7b only)
+- Escalate to Claude Sonnet for Tier B/C
+- Never force long context on 7B models
+
 ### Never Do
 
 - ❌ Choose Tier C for routine extraction/summaries
-- ❌ Escalate in cron/heartbeat modes
+- ❌ Escalate in cron/heartbeat modes (unless gates fail)
 - ❌ Hide premium usage — always surface in ROUTE
 - ❌ Leak secrets — prefer local_preferred mode if credentials appear
+- ❌ Force long context on local 7B models (causes paging, slowness)
+- ❌ Run 30B+ models on 16GB (causes system thrashing)
 
-**Monitor:** Weekly token usage review (Fridays). Adjust tier assignments if cost overruns detected.
+**Monitor:** Weekly token usage review (Fridays). Weekly performance check: are local models responsive? If not, reduce context size or escalate to cloud.
