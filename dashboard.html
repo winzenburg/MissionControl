@@ -561,35 +561,78 @@
 
         <!-- Job Search & Career Section -->
         <div class="section-title">Career</div>
+        
+        <!-- Pipeline Overview -->
         <div class="card">
-            <div class="card-title">Job Search</div>
-            <div class="card-subtitle">High-leverage role exploration</div>
+            <div class="card-title">Pipeline Overview</div>
             <div class="metrics">
                 <div class="metric success">
-                    <div class="metric-label">Target Roles</div>
-                    <div class="metric-value" id="jobRoles">0</div>
-                    <div class="metric-change">Identified</div>
+                    <div class="metric-label">Tier 1 Companies</div>
+                    <div class="metric-value" id="tier1Count">0</div>
+                    <div class="metric-change">Priority targets</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Warm Intros Sent</div>
+                    <div class="metric-value" id="warmIntrosRequested">0</div>
+                    <div class="metric-change">of <span id="warmIntrosTargeted">5</span></div>
                 </div>
                 <div class="metric warning">
                     <div class="metric-label">Applications</div>
                     <div class="metric-value" id="jobApplications">0</div>
-                    <div class="metric-change">Active</div>
-                </div>
-                <div class="metric success">
-                    <div class="metric-label">Interviews</div>
-                    <div class="metric-value" id="jobInterviews">0</div>
-                    <div class="metric-change">Scheduled</div>
+                    <div class="metric-change">In flight</div>
                 </div>
                 <div class="metric">
-                    <div class="metric-label">Watchlist</div>
-                    <div class="metric-value" id="jobWatchlist">0</div>
-                    <div class="metric-change">Companies</div>
+                    <div class="metric-label">Response Rate</div>
+                    <div class="metric-value" id="jobResponseRate">--</div>
+                    <div class="metric-change">Est.</div>
                 </div>
             </div>
-            <div style="margin-top: var(--spacing-xl);">
-                <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Compensation Target: $180k+</div>
-                <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Location: Remote or Colorado</div>
+            <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); font-size: var(--font-size-sm);">
+                    <div>
+                        <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Compensation Target</div>
+                        <div id="compensationTarget" style="color: var(--color-accent-primary); font-weight: 500;">$180-250K + 0.5-1.5% equity</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Current Phase</div>
+                        <div id="pipelineStage" style="color: var(--color-accent-secondary); font-weight: 500;">Warm intro phase</div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Tier 1 Companies -->
+        <div class="card">
+            <div class="card-title">Tier 1: Priority Targets</div>
+            <div class="card-subtitle">High-leverage, deep-research focus (AI-native, design-forward)</div>
+            <ul class="list" id="tier1List" style="margin-top: var(--spacing-lg);">
+                <!-- Populated by JS -->
+            </ul>
+        </div>
+
+        <!-- Tier 2 Companies -->
+        <div class="card">
+            <div class="card-title">Tier 2: Strong Alternatives</div>
+            <div class="card-subtitle">Well-funded, design-focused, or high-growth</div>
+            <ul class="list" id="tier2List" style="margin-top: var(--spacing-lg);">
+                <!-- Populated by JS -->
+            </ul>
+        </div>
+
+        <!-- Next Actions -->
+        <div class="card">
+            <div class="card-title">Next Actions</div>
+            <ul class="list" id="careerNextActions">
+                <!-- Populated by JS -->
+            </ul>
+        </div>
+
+        <!-- Timeline -->
+        <div class="card">
+            <div class="card-title">Outreach Timeline</div>
+            <ul class="list" id="careerTimeline">
+                <!-- Populated by JS -->
+            </ul>
         </div>
 
         <!-- GitHub Section -->
@@ -829,10 +872,104 @@
         function updateCareer(career) {
             if (!career) return;
 
-            document.getElementById('jobRoles').textContent = career.targetRoles || 0;
-            document.getElementById('jobApplications').textContent = career.applications || 0;
-            document.getElementById('jobInterviews').textContent = career.interviews || 0;
-            document.getElementById('jobWatchlist').textContent = career.watchlist || 0;
+            // Pipeline overview
+            const tier1Count = career.tier1 ? career.tier1.length : 0;
+            document.getElementById('tier1Count').textContent = tier1Count;
+            
+            const warmIntroMetrics = career.warmIntroMetrics || {};
+            document.getElementById('warmIntrosTargeted').textContent = warmIntroMetrics.targeted || 5;
+            document.getElementById('warmIntrosRequested').textContent = warmIntroMetrics.requested || 0;
+            document.getElementById('jobApplications').textContent = career.applicationMetrics?.submitted || 0;
+            document.getElementById('jobResponseRate').textContent = warmIntroMetrics.responseRate || '--';
+            document.getElementById('compensationTarget').textContent = career.compensationTarget || '--';
+            document.getElementById('pipelineStage').textContent = career.pipelineStage || '--';
+
+            // Tier 1 Companies
+            if (career.tier1 && career.tier1.length > 0) {
+                const tier1List = document.getElementById('tier1List');
+                tier1List.innerHTML = career.tier1.map(company => {
+                    const statusColor = company.status === 'Warm intro pending' ? 'status-online' : 
+                                       company.status === 'Research phase' ? 'status-pending' : 'status-offline';
+                    return `
+                        <li class="list-item">
+                            <div style="flex: 1;">
+                                <div class="list-item-label">${company.company}</div>
+                                <div class="list-item-value">${company.targetRole}</div>
+                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
+                                    ${company.location} • DM: ${company.decisionMaker}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="list-item-status ${statusColor}">
+                                    <span>${company.warmIntroStatus}</span>
+                                </div>
+                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
+                                    ${company.status}
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            // Tier 2 Companies
+            if (career.tier2 && career.tier2.length > 0) {
+                const tier2List = document.getElementById('tier2List');
+                tier2List.innerHTML = career.tier2.map(company => {
+                    const statusColor = company.warmIntroStatus === 'Pending' ? 'status-pending' : 'status-offline';
+                    return `
+                        <li class="list-item">
+                            <div style="flex: 1;">
+                                <div class="list-item-label">${company.company}</div>
+                                <div class="list-item-value">${company.targetRole}</div>
+                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
+                                    ${company.location}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="list-item-status ${statusColor}">
+                                    <span>${company.status}</span>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            // Next Actions
+            if (career.nextActions && career.nextActions.length > 0) {
+                const nextActionsList = document.getElementById('careerNextActions');
+                nextActionsList.innerHTML = career.nextActions.map(action => {
+                    const isUrgent = action.includes('by Feb 28');
+                    return `
+                        <li class="list-item">
+                            <div>
+                                <div class="list-item-label" style="color: ${isUrgent ? 'var(--color-accent-warning)' : 'var(--color-text-primary)'};">
+                                    ${action}
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            // Timeline
+            if (career.timeline) {
+                const timelineList = document.getElementById('careerTimeline');
+                const phases = [
+                    { label: 'Phase 1: Warm Intros', value: career.timeline.phase1 },
+                    { label: 'Phase 2: Content Visibility', value: career.timeline.phase2 },
+                    { label: 'Phase 3: Direct Outreach', value: career.timeline.phase3 }
+                ];
+                timelineList.innerHTML = phases.map(phase => `
+                    <li class="list-item">
+                        <div>
+                            <div class="list-item-label">${phase.label}</div>
+                            <div class="list-item-value">${phase.value}</div>
+                        </div>
+                    </li>
+                `).join('');
+            }
         }
 
         function updateGitHub(github) {

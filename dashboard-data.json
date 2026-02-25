@@ -230,10 +230,137 @@
     }
   },
   "career": {
-    "targetRoles": 3,
-    "applications": 2,
-    "interviews": 1,
-    "watchlist": 12
+    "targetRoles": 5,
+    "compensationTarget": "$180-250K + 0.5-1.5% equity",
+    "pipelineStage": "Warm intro phase (Feb 28 onward)",
+    "tier1": [
+      {
+        "company": "Anthropic",
+        "category": "AI Infrastructure",
+        "location": "San Francisco",
+        "targetRole": "Design Operations or Product Design",
+        "priority": 1,
+        "decisionMaker": "Mike Krieger (CPO)",
+        "warmIntroStatus": "Pending (via enterprise network)",
+        "applicationDate": null,
+        "responseDate": null,
+        "status": "Research phase",
+        "notes": "Safety-first culture, smaller team, growth phase"
+      },
+      {
+        "company": "Scalar",
+        "category": "AI Infrastructure",
+        "location": "San Francisco",
+        "targetRole": "Design Operations / Product Design",
+        "priority": 1,
+        "decisionMaker": "TBD (CPO/VPE)",
+        "warmIntroStatus": "Pending",
+        "applicationDate": null,
+        "responseDate": null,
+        "status": "Research phase",
+        "notes": "Enterprise AI platform, rapid growth"
+      },
+      {
+        "company": "Modal",
+        "category": "AI Infrastructure",
+        "location": "San Francisco",
+        "targetRole": "Design Operations / Product Design",
+        "priority": 1,
+        "decisionMaker": "TBD",
+        "warmIntroStatus": "Pending",
+        "applicationDate": null,
+        "responseDate": null,
+        "status": "Research phase",
+        "notes": "Serverless platform for AI/ML"
+      },
+      {
+        "company": "Figma",
+        "category": "Design Tools",
+        "location": "San Francisco",
+        "targetRole": "Head of Design Systems / Design Operations",
+        "priority": 2,
+        "decisionMaker": "Thomas Lowry (Head of Design)",
+        "warmIntroStatus": "Pending (1 degree away)",
+        "applicationDate": null,
+        "responseDate": null,
+        "status": "Warm intro pending",
+        "notes": "Established, design-forward, strong mission"
+      },
+      {
+        "company": "Included Health",
+        "category": "Healthtech",
+        "location": "Remote",
+        "targetRole": "Design Operations / Design Systems Lead",
+        "priority": 2,
+        "decisionMaker": "VP Product / Head of Design",
+        "warmIntroStatus": "Pending",
+        "applicationDate": null,
+        "responseDate": null,
+        "status": "Research phase",
+        "notes": "Caregiver tech alignment, caregiving focus"
+      }
+    ],
+    "tier2": [
+      {
+        "company": "Databricks",
+        "category": "Data Infrastructure",
+        "location": "San Francisco",
+        "targetRole": "Design Operations",
+        "priority": 3,
+        "decisionMaker": "VP Design",
+        "warmIntroStatus": "Pending",
+        "applicationDate": null,
+        "status": "Watchlist"
+      },
+      {
+        "company": "Gusto",
+        "category": "SaaS / Fintech",
+        "location": "Denver, CO",
+        "targetRole": "Design Systems Lead",
+        "priority": 3,
+        "decisionMaker": "VP Product",
+        "warmIntroStatus": "Pending",
+        "applicationDate": null,
+        "status": "Watchlist",
+        "notes": "Local: Denver, CO"
+      },
+      {
+        "company": "Framer",
+        "category": "Design Tools",
+        "location": "Amsterdam / Remote",
+        "targetRole": "Design Infrastructure",
+        "priority": 3,
+        "decisionMaker": "VP Design",
+        "warmIntroStatus": "Cold",
+        "applicationDate": null,
+        "status": "Watchlist"
+      }
+    ],
+    "warmIntroMetrics": {
+      "targeted": 5,
+      "requested": 0,
+      "responseRate": null,
+      "successRate": null,
+      "nextCheck": "2026-02-28"
+    },
+    "applicationMetrics": {
+      "submitted": 0,
+      "responseRate": null,
+      "phoneScreens": 0,
+      "onsites": 0,
+      "offers": 0
+    },
+    "timeline": {
+      "phase1": "Warm intros: Feb 25-28 (target 2-3 coffee chats)",
+      "phase2": "Content visibility: Mar (LinkedIn, written)",
+      "phase3": "Direct outreach + follow-ups: Apr"
+    },
+    "nextActions": [
+      "Request warm intros: Anthropic, Scalar, Modal (by Feb 28)",
+      "Request warm intro: Figma (1-degree intro available)",
+      "Complete Tier 1 research briefs (by Feb 28)",
+      "Post positioning content on LinkedIn (weekly)"
+    ]
   },
   "github": {
     "openPRs": 0,
