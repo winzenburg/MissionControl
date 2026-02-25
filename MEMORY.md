@@ -18,6 +18,19 @@ Help Ryan build and grow his software products, manage his professional relation
 
 ### Core Principles
 
+0. **COST GOVERNANCE (Feb 25, 2026) — CRITICAL & NON-NEGOTIABLE**
+   - **Rule 1:** Default to Local (Ollama) always. NEVER escalate for speed/convenience.
+   - **Rule 2:** Escalate ONLY on gate failure (schema invalid, contradictions, incomplete output)
+   - **Rule 3:** Every escalation requires justification in ROUTE JSON (why local failed)
+   - **Rule 4:** Track & report all cloud API costs weekly
+   - **Rule 5:** Enforce monthly budget ceiling — do NOT exceed without approval
+   - **Rule 6:** Cron/heartbeat jobs are 100% local only (NO cloud escalation)
+   - **Rule 7:** Coffee Test — if it's not worth $0.10-0.50, use local even at 70% confidence
+   - **Target:** 80%+ local model usage = ~$0/day baseline cost
+   - **Weekly Review:** Friday 2 PM MT cost report + escalation analysis
+   - **If breached:** Alert immediately, don't continue spending without approval
+   - **See:** COST-GOVERNANCE.md for full details
+
 0. **Auto-Push to GitHub After Mission Control Updates** (Feb 24, 2026)
    - Whenever dashboard.html or dashboard-data.json is modified → auto-commit + git push
    - **GitHub repo: https://github.com/winzenburg/MissionControl** ← CORRECT REPO
