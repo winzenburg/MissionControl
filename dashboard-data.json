@@ -276,5 +276,17 @@
     "referralRate": 18,
     "confirmed": 78,
     "engagement": 45
+  },
+  "engineMonitor": {
+    "lastRun": "2026-02-25T15:14:51.000Z",
+    "candidatesMonitored": 7,
+    "openPositions": 2,
+    "maxPositions": 2,
+    "entries": 0,
+    "exits": 0,
+    "partials": 0,
+    "blockedSignals": 5,
+    "maxRiskPct": 0.02,
+    "status": "Operational (Max positions reached)"
   }
 }
