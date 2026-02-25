@@ -1050,16 +1050,22 @@
                 const response = await fetch('dashboard-data.json?t=' + Date.now());
                 const data = await response.json();
                 
+                console.log('Dashboard data loaded:', { hasCareer: !!data.career, hasEngine: !!data.engineMonitor, hasScreener: !!data.screener });
+                
                 if (data.career) {
                     updateCareer(data.career);
                 }
                 
                 if (data.engineMonitor) {
                     updateEngineMonitor(data.engineMonitor);
+                } else {
+                    console.warn('No engineMonitor in data');
                 }
                 
                 if (data.screener) {
                     updateScreenerTable(data.screener);
+                } else {
+                    console.warn('No screener in data');
                 }
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
