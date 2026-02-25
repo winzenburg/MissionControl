@@ -296,16 +296,81 @@ A well-regarded agent presence can drive human traffic to my projects. Focus on 
 
 ---
 
-## Multi-Model Strategy (Updated for v2026.2.6)
+## Multi-Model Strategy: Cost-Optimized Router (Feb 25, 2026)
 
-To optimize cost and performance, use different models for different tasks. v2026.2.6 adds support for Opus 4.6, GPT-5.3-Codex, and xAI Grok.
+**Architecture: Start cheap, escalate only when needed. Prefer Ollama local models; fall back to cloud only when necessary.**
 
-| Task Type | Recommended Model | Rationale |
-|-----------|-------------------|-----------|
-| **Complex reasoning, strategy, architecture** | Claude Opus 4.6 | Highest capability for difficult tasks. Forward-compat fallback enabled. |
-| **Routine tasks, simple queries** | Claude Sonnet 4 | Cost-effective for everyday work |
-| **Quick lookups, simple formatting** | Claude Haiku 3 | Fastest and cheapest for trivial tasks |
-| **Coding assistance** | GPT-5.3-Codex | Optimized for code generation and review. New in v2026.2.6. |
-| **Fallback / alternative perspective** | xAI Grok | New provider in v2026.2.6. Useful for diverse reasoning. |
+### Available Models
 
-Monitor token usage via the new **Web UI Token Usage Dashboard** (enabled in v2026.2.6). Review weekly on Fridays to optimize model routing.
+**Local (Ollama - FREE)**
+- `mistral:latest` (4.4GB) — Tier A primary
+- `neural-chat:latest` (4.1GB) — Tier A alternative
+- `gpt-oss:20b` (13.8GB) — Tier B fallback
+
+**Cloud (Funded providers)**
+- Claude Opus 4.6 — Tier C (high-stakes, complex reasoning)
+- Claude Sonnet 4 — Tier B fallback (if local insufficient)
+- Claude Haiku 3 — Tier A fallback (if Ollama unavailable)
+- GPT-5.3-Codex — Tier B (code generation)
+- xAI Grok — Tier B alternative
+
+### Tier Strategy
+
+| Tier | Use Case | Primary | Fallback 1 | Fallback 2 |
+|------|----------|---------|-----------|-----------|
+| **A** (Economy) | Extract, classify, format, short Q&A, summaries <4KB | `mistral:latest` | `neural-chat:latest` | Claude Haiku 3 |
+| **B** (Balanced) | Planning, solid writing, code review, debugging, moderate decisions | `gpt-oss:20b` | Claude Sonnet 4 | GPT-5.3-Codex |
+| **C** (Premium) | Architecture, security, multi-system design, high-stakes | Claude Opus 4.6 | — | — |
+
+### Task Routing Rules (Hard Rules)
+
+**Always start with Tier A (Ollama)**
+- Extraction, classification, formatting, simple Q&A
+- Summaries <4KB, routine writing
+- Code generation <100 lines
+
+**Escalate to Tier B if:**
+- Tier A gate check fails (quality, schema, completeness)
+- Task complexity exceeds simple classification
+- Multi-file refactoring, non-trivial debugging
+- Decisions affecting multiple systems
+
+**Escalate to Tier C if:**
+- Tier B gate check fails
+- Architecture/security decisions
+- Financial/trading execution (always high-risk)
+- Incident debugging, credential handling
+
+**No escalation in cron/heartbeat modes** — return best Tier A attempt + known gaps
+
+### Cost Framework
+
+- **Tier A:** ~$0 (local, unlimited)
+- **Tier B:** ~$0.01-0.05 per request (cloud fallback)
+- **Tier C:** ~$0.10-0.50 per request (premium)
+- **Monthly target:** Minimize cloud usage, 80%+ local
+
+### Gate Checks (Always Run Mentally)
+
+- ✅ schema_valid: output parses + contains required fields
+- ✅ constraints_met: respects user constraints (tone, length, format)
+- ✅ contradictions: no self-contradictions or request misalignment
+- ✅ tests_present: code changes include tests/test plan + edge cases
+- ✅ citations_if_web: web sources cited; no fabricated citations
+
+### Failure Mode
+
+If **any gate check fails:**
+1. Escalate tier by one step (A→B→C)
+2. Retry with tighter instructions
+3. Stop after max escalations (1 in cron, 2 in interactive)
+4. Return best attempt + `known_gaps` + `next_steps`
+
+### Never Do
+
+- ❌ Choose Tier C for routine extraction/summaries
+- ❌ Escalate in cron/heartbeat modes
+- ❌ Hide premium usage — always surface in ROUTE
+- ❌ Leak secrets — prefer local_preferred mode if credentials appear
+
+**Monitor:** Weekly token usage review (Fridays). Adjust tier assignments if cost overruns detected.
