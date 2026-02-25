@@ -286,33 +286,82 @@ class NXTradeEngine {
 // ===================================================================
 
 class RiskManager {
-  constructor(accountValue = 1000000, maxRiskPct = 0.02) {
+  constructor(accountValue = 1000000, maxRiskPct = 0.02, peakEquity = 1000000) {
     this.accountValue = accountValue;
+    this.peakEquity = peakEquity; // PHASE 2: Track peak equity for DD calculation
     this.maxRiskPct = maxRiskPct; // PHASE 1: Explicit per-trade risk percentage
     this.maxLossPerTrade = accountValue * maxRiskPct;
     this.maxConcurrentPositions = 2;
   }
 
-  canOpenPosition(openPositions) {
+  // PHASE 2 INSIGHT 3: Calculate current drawdown
+  calculateDrawdown() {
+    if (this.peakEquity <= 0) return 0;
+    return (this.peakEquity - this.accountValue) / this.peakEquity;
+  }
+
+  // PHASE 2 INSIGHT 3: Get DD position size multiplier
+  getDDMultiplier() {
+    const dd = this.calculateDrawdown();
+    
+    // Circuit breaker: >20% DD = stop trading entirely
+    if (dd > 0.20) return 0; // No new positions
+    
+    // Moderate DD: 5-15% → Keep position size steady (DO NOT reduce)
+    // This is the Covel insight: recoveries happen at these levels
+    if (dd > 0.05 && dd <= 0.15) return 1.0; // Full size
+    
+    // Small DD: <5% → Full position size
+    if (dd <= 0.05) return 1.0; // Full size
+    
+    // Drawdown between 15-20%: Optional modest reduction (not required by Covel)
+    if (dd > 0.15) return 0.75; // 75% size
+    
+    return 1.0; // Default: full size
+  }
+
+  canOpenPosition(openPositions, dd = 0) {
+    const multiplier = this.getDDMultiplier();
+    
+    // If >20% DD, block all new positions
+    if (multiplier === 0) return false;
+    
     return openPositions.length < this.maxConcurrentPositions;
   }
 
-  calculatePositionSize(entryPrice, stopPrice) {
+  calculatePositionSize(entryPrice, stopPrice, dd = 0) {
     /**
-     * PHASE 1 - Position sizing formula from Covel framework:
+     * PHASE 1 + 2 - Position sizing formula from Covel framework:
      * riskPerShare = entryPrice - initialStop
-     * maxShares = (accountEquity * maxRiskPct) / riskPerShare
+     * maxShares = (accountEquity * maxRiskPct * ddMultiplier) / riskPerShare
+     * 
+     * PHASE 2 INSIGHT 3: Apply DD multiplier to position size
+     * - >20% DD: Block all entries (multiplier = 0)
+     * - 15-20% DD: Optional 75% size reduction
+     * - 5-15% DD: FULL SIZE (key Covel insight: recoveries happen here)
+     * - <5% DD: Full size
      */
     const riskPerShare = Math.abs(entryPrice - stopPrice);
-    if (riskPerShare <= 0) return { shares: 0, risk: 0, display: 'N/A' };
+    if (riskPerShare <= 0) return { shares: 0, risk: 0, display: 'N/A', ddMultiplier: 1 };
 
-    const maxShares = Math.floor(this.maxLossPerTrade / riskPerShare);
-    const displayStr = maxShares <= 0 ? 'Position too small' : `${maxShares} shares @ ${this.maxRiskPct * 100}% risk`;
+    const ddMultiplier = this.getDDMultiplier();
+    const adjustedRisk = this.maxLossPerTrade * ddMultiplier;
+    const maxShares = Math.floor(adjustedRisk / riskPerShare);
+    
+    let displayStr = `${maxShares} shares @ ${this.maxRiskPct * 100}% risk`;
+    if (ddMultiplier < 1.0) {
+      const currentDD = (this.calculateDrawdown() * 100).toFixed(1);
+      displayStr += ` (DD: ${currentDD}%, size: ${(ddMultiplier * 100).toFixed(0)}%)`;
+    }
+    if (ddMultiplier === 0) {
+      displayStr = `BLOCKED - Drawdown >20%`;
+    }
     
     return { 
       shares: Math.max(maxShares, 1), 
       risk: riskPerShare,
-      display: displayStr
+      display: displayStr,
+      ddMultiplier,
     };
   }
 }

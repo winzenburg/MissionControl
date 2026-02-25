@@ -19,6 +19,27 @@ const WORKSPACE = path.resolve(__dirname, '..');
 const DASHBOARD_DATA = path.join(WORKSPACE, 'dashboard-data.json');
 
 // ===================================================================
+// PHASE 2 CONFIGURATION
+// ===================================================================
+
+const PHASE2_CONFIG = {
+  // Insight 3: Portfolio drawdown handling
+  // - >20% DD: block all entries
+  // - 5-15% DD: full position size (do NOT reduce)
+  // - <5% DD: full position size
+  portfolioDD: true,
+  
+  // Insight 4: Require 52-week highs for Tier 3 candidates
+  useNewHighFilter: true,
+  
+  // Insight 5: zEnter threshold for entry signals
+  // Default 50 (conservative): RSI > 50 = higher win rate, smaller winners
+  // Lower 40: RSI > 40 = more trades, larger avg winner (test both)
+  // Backtest to optimize expectancy ratio, NOT win rate
+  zEnter: 50, // BACKTEST: Try 40, 45, 50, 55 and compare expectancy ratios
+};
+
+// ===================================================================
 // UNIVERSES
 // ===================================================================
 
@@ -163,6 +184,10 @@ class NXScreener {
     const recentHL = lows[this.n - 1] > this.lowest(lows, 10);
     const structScore = (recentHH && recentHL) ? 1.0 : 0.5;
 
+    // PHASE 2 INSIGHT 4: Check if at 52-week high
+    const max52w = this.highest(closes, 252);
+    const atNewHigh = closes[this.n - 1] >= max52w;
+
     // Composite Score
     const scoreRaw = Math.min(Math.max(compMom / 25.0, 0), 1);
     const volScore = Math.min(rvol / 3.0, 1) * 0.7;
@@ -179,6 +204,7 @@ class NXScreener {
       rocS,
       rocM,
       rocL,
+      atNewHigh, // NEW: Track 52-week high status
     };
   }
 
@@ -191,15 +217,29 @@ class NXScreener {
   }
 
   // Check Readiness (Screener Criteria)
-  isReady(score, spy, minDollarVol, minPrice) {
-    const close = this.data[this.n - 1].close;
+  isReady(score, spy, minDollarVol, minPrice, useNewHighFilter = false, zEnter = 50) {
+    /**
+     * PHASE 2 INSIGHT 5: zEnter parameter controls entry threshold
+     * Default (zEnter = 50): RSI must be > 50 (conservative, high win rate)
+     * Lower (zEnter = 40): RSI must be > 40 (more trades, larger winners)
+     * Backtest to find optimal expectancy ratio, not win rate
+     */
+    const closes = this.data.map(d => d.close);
+    const close = closes[this.n - 1];
     const volume = this.data[this.n - 1].volume;
     const dollarVol = close * volume;
 
     if (dollarVol < minDollarVol || close < minPrice) return false;
     if (score.rsPct < 0.65) return false; // RS threshold for longs
-    if (score.rsi14 < 50) return false;
+    if (score.rsi14 < zEnter) return false; // PHASE 2: Configurable entry threshold
     if (score.absMom <= 0) return false;
+
+    // PHASE 2 INSIGHT 4: New 52-week high filter (Covel research)
+    // Biggest winners spend disproportionate time at new multi-year highs
+    if (useNewHighFilter) {
+      const max52w = this.highest(closes, 252); // 52-week high
+      if (close < max52w) return false; // Must be at or above 52-week high
+    }
 
     return true;
   }
@@ -310,7 +350,18 @@ async function runScreener() {
     const screener = new NXScreener(ticker, data);
     const score = screener.calculateScore(spyData, benchCh);
     const tier = screener.getTier(score);
-    const isReady = screener.isReady(score, spyData, 500000000, 5); // $500M daily vol, $5 min price
+    
+    // PHASE 2: Apply configuration gates
+    // Insight 4: For Tier 3, require 52-week high confirmation
+    // Insight 5: Use configurable zEnter threshold
+    const isReady = screener.isReady(
+      score,
+      spyData,
+      500000000, // $500M daily vol
+      5,         // $5 min price
+      tier === 3 && PHASE2_CONFIG.useNewHighFilter, // Insight 4
+      PHASE2_CONFIG.zEnter  // Insight 5
+    ); 
 
     if (!isReady || tier > 3) continue;
 
@@ -324,6 +375,7 @@ async function runScreener() {
       volume: parseFloat((score.rvol).toFixed(2)),
       score: parseFloat(score.compFinal.toFixed(3)),
       tier: tier,
+      atNewHigh: score.atNewHigh, // NEW: Track 52-week high status
     };
 
     if (tier === 3) results.tier3.push(candidate);
