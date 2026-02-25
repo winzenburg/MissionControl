@@ -12,997 +12,565 @@
         }
 
         :root {
-            --color-bg-primary: #0f0f0f;
-            --color-bg-secondary: #1a1a1a;
-            --color-bg-tertiary: #252525;
-            --color-text-primary: #ffffff;
-            --color-text-secondary: #b0b0b0;
-            --color-text-tertiary: #808080;
-            --color-accent-success: #10b981;
-            --color-accent-danger: #ef4444;
-            --color-accent-warning: #f59e0b;
-            --color-border: #333333;
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 12px;
-            --spacing-lg: 16px;
-            --spacing-xl: 24px;
-            --spacing-2xl: 32px;
-            --font-size-xs: 11px;
+            /* Premium dark fintech palette */
+            --bg-primary: #09090b;
+            --bg-secondary: #141416;
+            --bg-tertiary: #1e1e22;
+            --bg-hover: #27272d;
+            
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #717175;
+            
+            --accent-primary: #00d9ff;
+            --accent-secondary: #6366f1;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            
+            --border-color: #27272d;
+            --border-light: #3f3f46;
+            
+            /* Spacing (4px baseline) */
+            --sp-xs: 4px;
+            --sp-sm: 8px;
+            --sp-md: 12px;
+            --sp-lg: 16px;
+            --sp-xl: 24px;
+            --sp-2xl: 32px;
+            --sp-3xl: 48px;
+            
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            --font-size-xs: 12px;
             --font-size-sm: 13px;
             --font-size-base: 14px;
             --font-size-lg: 16px;
             --font-size-xl: 18px;
-            --font-size-2xl: 24px;
-            --font-size-3xl: 32px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 32px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
         }
 
-        body {
-            background-color: var(--color-bg-primary);
-            color: var(--color-text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        html, body {
+            height: 100%;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-family);
             font-size: var(--font-size-base);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: var(--spacing-2xl);
+            padding: var(--sp-2xl) var(--sp-3xl);
+            min-height: 100vh;
         }
 
-        header {
-            margin-bottom: var(--spacing-2xl);
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: var(--spacing-xl);
-        }
-
-        h1 {
-            font-size: var(--font-size-3xl);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .tabs {
+        /* ===== HEADER ===== */
+        .header {
+            margin-bottom: var(--sp-3xl);
+            padding-bottom: var(--sp-2xl);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            gap: var(--spacing-md);
-            overflow-x: auto;
-            margin-bottom: var(--spacing-2xl);
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: var(--spacing-md);
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .tab {
-            padding: var(--spacing-md) var(--spacing-lg);
+        .header h1 {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: var(--sp-md);
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* ===== TABS ===== */
+        .tab-navigation {
+            display: flex;
+            gap: var(--sp-sm);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--sp-3xl);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .tab-btn {
+            padding: var(--sp-lg) var(--sp-xl);
             background: none;
             border: none;
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             cursor: pointer;
             font-size: var(--font-size-base);
+            font-weight: 500;
             white-space: nowrap;
             border-bottom: 2px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
-        .tab:hover {
-            color: var(--color-text-primary);
+        .tab-btn:hover {
+            color: var(--text-primary);
         }
 
-        .tab.active {
-            color: var(--color-text-primary);
-            border-bottom-color: var(--color-accent-success);
+        .tab-btn.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
         }
 
+        /* ===== TAB CONTENT ===== */
         .tab-content {
             display: none;
+            animation: fadeIn 0.3s ease-in;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        .grid {
-            display: grid;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-2xl);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .grid-3col {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .grid-4col {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .grid-5col {
-            grid-template-columns: repeat(5, 1fr);
-        }
-
+        /* ===== CARDS & GRIDS ===== */
         .card {
-            background-color: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            padding: var(--spacing-xl);
-            cursor: pointer;
-            transition: all 0.2s;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--sp-xl);
+            transition: all 0.2s ease;
         }
 
         .card:hover {
-            background-color: var(--color-bg-tertiary);
-            border-color: var(--color-accent-success);
+            border-color: var(--border-light);
+            background-color: var(--bg-tertiary);
         }
 
         .card-title {
             font-size: var(--font-size-lg);
             font-weight: 600;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: var(--sp-lg);
+            color: var(--text-primary);
         }
 
-        .card-metric {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .card-metric-label {
-            color: var(--color-text-tertiary);
+        .card-subtitle {
             font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-lg);
         }
 
-        .card-metric-value {
-            font-size: var(--font-size-xl);
-            font-weight: 600;
+        .grid {
+            display: grid;
+            gap: var(--sp-xl);
+            margin-bottom: var(--sp-3xl);
         }
 
-        .status {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: var(--spacing-xs);
-        }
-
-        .status-green {
-            background-color: var(--color-accent-success);
-        }
-
-        .status-yellow {
-            background-color: var(--color-accent-warning);
-        }
-
-        .status-red {
-            background-color: var(--color-accent-danger);
-        }
-
-        .section-title {
-            font-size: var(--font-size-xl);
-            font-weight: 600;
-            margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: var(--spacing-md);
-        }
-
-        .time-allocation {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
-        }
-
-        .time-bar {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-md);
-        }
-
-        .time-label {
-            width: 150px;
-            font-size: var(--font-size-sm);
-        }
-
-        .time-percent {
-            font-weight: 600;
-            color: var(--color-accent-success);
-            width: 50px;
-        }
-
-        .time-visual {
-            flex: 1;
-            height: 20px;
-            background-color: var(--color-bg-tertiary);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .time-fill {
-            height: 100%;
-            background-color: var(--color-accent-success);
-            transition: width 0.2s;
-        }
+        .grid-2col { grid-template-columns: repeat(2, 1fr); }
+        .grid-3col { grid-template-columns: repeat(3, 1fr); }
+        .grid-4col { grid-template-columns: repeat(4, 1fr); }
+        .grid-5col { grid-template-columns: repeat(5, 1fr); }
 
         @media (max-width: 1200px) {
-            .grid-5col {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .grid-4col {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .grid-3col {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .grid-5col { grid-template-columns: repeat(4, 1fr); }
+            .grid-4col { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .tabs {
-                flex-wrap: wrap;
-            }
+            .grid-4col, .grid-3col { grid-template-columns: repeat(2, 1fr); }
+            .grid-2col, .grid-5col { grid-template-columns: 1fr; }
         }
+
+        /* ===== METRICS ===== */
+        .metric-card {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--sp-xl);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .metric-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: var(--sp-sm);
+        }
+
+        .metric-change {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+
+        /* ===== COMPANY CARDS (Job Search) ===== */
+        .company-card {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--sp-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--sp-lg);
+            transition: all 0.2s ease;
+        }
+
+        .company-card:hover {
+            border-color: var(--accent-secondary);
+            background: linear-gradient(135deg, var(--bg-hover) 0%, var(--bg-tertiary) 100%);
+            transform: translateX(4px);
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .company-name {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--sp-sm);
+        }
+
+        .company-role {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-md);
+        }
+
+        .company-details {
+            display: flex;
+            gap: var(--sp-lg);
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+
+        .company-status {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-md);
+            align-items: flex-end;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: var(--sp-sm) var(--sp-md);
+            border-radius: 6px;
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-badge.pending {
+            background-color: rgba(249, 158, 11, 0.1);
+            color: var(--accent-warning);
+            border: 1px solid rgba(249, 158, 11, 0.3);
+        }
+
+        .status-badge.research {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .status-badge.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-text {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+
+        /* ===== LISTS ===== */
+        .list {
+            list-style: none;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--sp-lg) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-label {
+            font-size: var(--font-size-base);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .list-item-value {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            background-color: var(--border-color);
+            border-radius: 4px;
+            height: 6px;
+            overflow: hidden;
+            margin-top: var(--sp-md);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--sp-2xl);
+            padding-bottom: var(--sp-lg);
+            border-bottom: 1px solid var(--border-color);
+            letter-spacing: -0.3px;
+        }
+
+        /* ===== JOB SEARCH SPECIFIC ===== */
+        .job-search-hero {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--sp-2xl);
+            margin-bottom: var(--sp-3xl);
+        }
+
+        .job-search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--sp-xl);
+        }
+
+        .job-search-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--sp-lg);
+            margin-top: var(--sp-xl);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            margin-bottom: var(--sp-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== UTILITIES ===== */
+        .mt-0 { margin-top: 0; }
+        .mt-lg { margin-top: var(--sp-lg); }
+        .mt-xl { margin-top: var(--sp-xl); }
+        .mt-2xl { margin-top: var(--sp-2xl); }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-lg { margin-bottom: var(--sp-lg); }
+        .mb-xl { margin-bottom: var(--sp-xl); }
+
+        .pt-lg { padding-top: var(--sp-lg); }
+        .pt-xl { padding-top: var(--sp-xl); }
+
+        .text-center { text-align: center; }
+        .text-secondary { color: var(--text-secondary); }
+        .text-tertiary { color: var(--text-tertiary); }
+
+        .opacity-75 { opacity: 0.75; }
+        .opacity-50 { opacity: 0.5; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🎛️ Mission Control</h1>
-            <p style="color: var(--color-text-tertiary);">Portfolio Command Center — All Projects at a Glance</p>
-        </header>
-
-        <div class="tabs">
-            <button class="tab active" data-tab="overview">Overview</button>
-            <button class="tab" data-tab="trading">Trading</button>
-            <button class="tab" data-tab="job-search">Job Search</button>
-            <button class="tab" data-tab="potshards">Potshards</button>
-            <button class="tab" data-tab="kinlet">Kinlet</button>
-            <button class="tab" data-tab="kinetic-ui">Kinetic-UI</button>
-            <button class="tab" data-tab="cultivate">Cultivate</button>
-            <button class="tab" data-tab="winzenburg">Winzenburg</button>
-            <button class="tab" data-tab="linkedin">LinkedIn</button>
-        </div>
-
-        <!-- OVERVIEW TAB -->
-        <div id="overview" class="tab-content active">
-            <div class="section-title">📊 Portfolio Status</div>
-            <div class="grid grid-5col">
-                <div class="card" onclick="switchTab('trading');" style="cursor: pointer;">
-                    <div class="card-title">Trading</div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">P&L</div>
-                        <div class="card-metric-value" style="color: var(--color-accent-danger);">-$730</div>
-                    </div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Positions</div>
-                        <div class="card-metric-value">2/2</div>
-                    </div>
-                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
-                        <span class="status status-green"></span><span style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Live</span>
-                    </div>
-                </div>
-
-                <div class="card" onclick="switchTab('kinlet')">
-                    <div class="card-title">Kinlet</div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Waitlist</div>
-                        <div class="card-metric-value">523</div>
-                    </div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Conversion</div>
-                        <div class="card-metric-value">7.69%</div>
-                    </div>
-                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
-                        <span class="status status-yellow"></span><span style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Pre-launch</span>
-                    </div>
-                </div>
-
-                <div class="card" onclick="switchTab('kinetic-ui')">
-                    <div class="card-title">Kinetic-UI</div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Early Access</div>
-                        <div class="card-metric-value">89</div>
-                    </div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Conversion</div>
-                        <div class="card-metric-value">7.69%</div>
-                    </div>
-                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
-                        <span class="status status-yellow"></span><span style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Pre-launch</span>
-                    </div>
-                </div>
-
-                <div class="card" onclick="switchTab('cultivate')">
-                    <div class="card-title">Cultivate</div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Revenue</div>
-                        <div class="card-metric-value">$0</div>
-                    </div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Customers</div>
-                        <div class="card-metric-value">0</div>
-                    </div>
-                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
-                        <span class="status status-yellow"></span><span style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Early</span>
-                    </div>
-                </div>
-
-                <div class="card" onclick="switchTab('potshards')">
-                    <div class="card-title">Potshards</div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Subscribers</div>
-                        <div class="card-metric-value">847</div>
-                    </div>
-                    <div class="card-metric">
-                        <div class="card-metric-label">Revenue</div>
-                        <div class="card-metric-value">$0</div>
-                    </div>
-                    <div style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--color-border);">
-                        <span class="status status-green"></span><span style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Early</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-title">⏱️ Time Allocation (This Week)</div>
-            <div class="grid" style="grid-template-columns: 1fr;">
-                <div class="card">
-                    <div class="time-allocation">
-                        <div class="time-bar">
-                            <div class="time-label">Kinlet</div>
-                            <div class="time-percent">25%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 25%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Cultivate</div>
-                            <div class="time-percent">20%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 20%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Job Search</div>
-                            <div class="time-percent">15%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 15%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Potshards</div>
-                            <div class="time-percent">10%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 10%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Trading</div>
-                            <div class="time-percent">10%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 10%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">LinkedIn</div>
-                            <div class="time-percent">8%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 8%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Kinetic-UI</div>
-                            <div class="time-percent">7%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 7%;"></div></div>
-                        </div>
-                        <div class="time-bar">
-                            <div class="time-label">Winzenburg</div>
-                            <div class="time-percent">5%</div>
-                            <div class="time-visual"><div class="time-fill" style="width: 5%;"></div></div>
-                        </div>
-                    </div>
-                </div>
+        <!-- HEADER -->
+        <div class="header">
+            <div>
+                <h1>Mission Control</h1>
+                <p class="header-subtitle">Portfolio Dashboard • February 25, 2026</p>
             </div>
         </div>
 
-        <!-- TRADING TAB -->
-        <div id="trading" class="tab-content">
-            <div class="section-title">💹 Trading Dashboard</div>
-            
-            <!-- KEY METRICS -->
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Portfolio Summary</div>
-            <div class="grid grid-5col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Total P&L</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$730.29</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">-0.37%</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Daily Return</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$0.45</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Today</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Weekly Return</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$45.23</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Last 7 days</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">MTD Return</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-danger);">-$730.29</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">February</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Open Positions</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">2</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Max: 2/2</div>
-                </div>
-            </div>
-
-            <!-- RISK METRICS -->
-            <div class="section-title" style="margin-top: var(--spacing-xl);">⚠️ Risk Metrics</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div class="card-title">Max Drawdown</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Current</span>
-                        <span style="color: var(--color-accent-danger);">-0.37%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>YTD High</span>
-                        <span style="color: var(--color-accent-danger);">-0.37%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Threshold</span>
-                        <span>-10.00%</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Win Rate</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Trades</span>
-                        <span>N/A</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Closed Wins</span>
-                        <span>0</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Closed Losses</span>
-                        <span>0</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Sharpe Ratio</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Calculated</span>
-                        <span>N/A</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Target</span>
-                        <span>1.5+</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Status</span>
-                        <span style="color: var(--color-text-secondary);">Pending</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Position Risk</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Max Risk/Trade</span>
-                        <span>0.5%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Margin Used</span>
-                        <span>0%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Status</span>
-                        <span style="color: var(--color-accent-success);">Safe</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OPEN POSITIONS -->
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📍 Open Positions</div>
-            <div class="card">
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
-                        <thead>
-                            <tr style="background-color: var(--color-bg-tertiary);">
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Ticker</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Entry</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Current</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Qty</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">P&L</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">P&L %</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Stop</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Target</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid var(--color-border);">
-                                <td style="padding: var(--spacing-md);"><strong>MU</strong></td>
-                                <td style="padding: var(--spacing-md);">$420.47</td>
-                                <td style="padding: var(--spacing-md);">$418.32</td>
-                                <td style="padding: var(--spacing-md);">237</td>
-                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-$509.55</td>
-                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-0.51%</td>
-                                <td style="padding: var(--spacing-md);">$399.45</td>
-                                <td style="padding: var(--spacing-md);">$452.01</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);">
-                                <td style="padding: var(--spacing-md);"><strong>ASML</strong></td>
-                                <td style="padding: var(--spacing-md);">$1,503.31</td>
-                                <td style="padding: var(--spacing-md);">$1,499.97</td>
-                                <td style="padding: var(--spacing-md);">66</td>
-                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-$220.74</td>
-                                <td style="padding: var(--spacing-md); color: var(--color-accent-danger);">-0.22%</td>
-                                <td style="padding: var(--spacing-md);">$1,428.15</td>
-                                <td style="padding: var(--spacing-md);">$1,616.06</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- SCREENER RESULTS -->
-            <div class="section-title" style="margin-top: var(--spacing-xl);">🎯 NX Screener Results (Top 5 Tier 3)</div>
-            <div class="card">
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
-                        <thead>
-                            <tr style="background-color: var(--color-bg-tertiary);">
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Rank</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Ticker</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">RS %</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Z-Score</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Momentum</th>
-                                <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">1</td><td style="padding: var(--spacing-md);"><strong>MU</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">161.27</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+255.9%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">2</td><td style="padding: var(--spacing-md);"><strong>ASML</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">66.53</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+98.5%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">3</td><td style="padding: var(--spacing-md);"><strong>JNJ</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">28.28</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+38.9%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">4</td><td style="padding: var(--spacing-md);"><strong>LRCX</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">96.78</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+144.1%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">5</td><td style="padding: var(--spacing-md);"><strong>AMAT</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">91.22</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+132.8%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- TRADE ENGINE STATUS -->
-            <div class="section-title" style="margin-top: var(--spacing-xl);">⚙️ NX Trade Engine Status</div>
-            <div class="grid grid-3col">
-                <div class="card">
-                    <div class="card-title">Monitor Status</div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Status</span>
-                        <span style="color: var(--color-accent-success);">🟢 RUNNING</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Last Scan</span>
-                        <span>2:49 PM MT</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Uptime</span>
-                        <span>6h 45m</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Entry Signals</div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Waiting</span>
-                        <span>8 candidates</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Today's Entries</span>
-                        <span>2</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Max Open</span>
-                        <span>2/2 REACHED</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">System Health</div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>IB Gateway</span>
-                        <span style="color: var(--color-accent-success);">✅ Connected</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border);">
-                        <span>Data Feed</span>
-                        <span style="color: var(--color-accent-success);">✅ Live</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Screener</span>
-                        <span style="color: var(--color-accent-success);">✅ Running</span>
-                    </div>
-                </div>
-            </div>
+        <!-- TABS -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="overview">📊 Overview</button>
+            <button class="tab-btn" data-tab="trading">📈 Trading</button>
+            <button class="tab-btn" data-tab="job-search">💼 Job Search</button>
+            <button class="tab-btn" data-tab="kinlet">❤️ Kinlet</button>
+            <button class="tab-btn" data-tab="kinetic-ui">🎨 Kinetic-UI</button>
+            <button class="tab-btn" data-tab="cultivate">🌱 Cultivate</button>
+            <button class="tab-btn" data-tab="potshards">📰 Potshards</button>
+            <button class="tab-btn" data-tab="winzenburg">🔗 Winzenburg</button>
+            <button class="tab-btn" data-tab="linkedin">📱 LinkedIn</button>
         </div>
 
-        <!-- JOB SEARCH TAB -->
-        <!-- KINLET TAB -->
-        <div id="kinlet" class="tab-content">
-            <div class="section-title">❤️ Kinlet — Caregiver Support SaaS</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Waitlist Growth</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">523</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">North Star metric</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Conversion Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success);">7.69%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Target: 15-20%</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Pageviews</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">234</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">24h</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Top Traffic</div>
-                    <div style="font-size: var(--font-size-2xl); font-weight: 600;">Direct</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">51% of traffic</div>
-                </div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Traffic Source Breakdown</div>
-            <div class="grid grid-3col">
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Direct</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">120 visits</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Reddit (r/dementia)</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">80 visits</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Facebook Groups</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">34 visits</div></div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">🎯 Engagement Metrics</div>
-            <div class="grid grid-2col">
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Scroll Depth</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <div style="margin-bottom: var(--spacing-sm);">25%: 200 users</div>
-                        <div style="margin-bottom: var(--spacing-sm);">50%: 120 users</div>
-                        <div style="margin-bottom: var(--spacing-sm);">75%: 45 users</div>
-                        <div>100%: 12 users</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Form Field Drop-off</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <div style="margin-bottom: var(--spacing-sm);">Email: 18 submitted</div>
-                        <div style="margin-bottom: var(--spacing-sm);">Relationship: 14 filled</div>
-                        <div>Stage: 12 completed</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- KINETIC-UI TAB -->
-        <div id="kinetic-ui" class="tab-content">
-            <div class="section-title">🎨 Kinetic-UI — Fintech Design System</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Early Access Signups</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">89</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Validation metric</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Conversion Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success);">7.69%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Target: 5-10%</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Pageviews</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">156</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">24h</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Top Traffic</div>
-                    <div style="font-size: var(--font-size-2xl); font-weight: 600;">HackerNews</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">57% B2B tech</div>
-                </div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">👥 Signup Role Distribution</div>
-            <div class="grid grid-4col">
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Founder</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">34 signups</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">CTO</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">28 signups</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">VP Eng</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">18 signups</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Designer</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">9 signups</div></div>
-            </div>
-        </div>
-
-        <!-- CULTIVATE TAB -->
-        <div id="cultivate" class="tab-content">
-            <div class="section-title">🌱 Cultivate — SaaS Operating System</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Revenue MTD</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">$0</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Stage: Framework</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Customers</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">0</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Building GTM</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Feature Velocity</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">8</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Shipped this month</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Status</div>
-                    <div style="font-size: var(--font-size-2xl); font-weight: 600; color: var(--color-accent-warning);">🟡 Early</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Validation phase</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- POTSHARDS TAB -->
-        <div id="potshards" class="tab-content">
-            <div class="section-title">📰 Potshards & Shenanigans — Newsletter</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Subscribers</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">847</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">+1.2% weekly</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Open Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success);">34%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Target: 50-70%</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Posts This Month</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">4</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Audience building</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Revenue</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">$0</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Focus: PMF</div>
-                </div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Metrics</div>
-            <div class="grid grid-2col">
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Weekly Net Adds</div>
-                    <div style="font-size: var(--font-size-2xl); color: var(--color-accent-success); font-weight: 600;">+12 subs</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">2-3 per post = signal</div>
-                </div>
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Top Traffic Source</div>
-                    <div style="font-size: var(--font-size-2xl); color: var(--color-text-primary); font-weight: 600;">X/Twitter</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-top: var(--spacing-sm);">Direct sharing</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINZENBURG TAB -->
-        <div id="winzenburg" class="tab-content">
-            <div class="section-title">💻 Winzenburg.com — Portfolio Site</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Monthly Traffic</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">342</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Visitors</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">CTA Conversion</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success);">5.34%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Call bookings</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Top Traffic</div>
-                    <div style="font-size: var(--font-size-2xl); font-weight: 600;">LinkedIn</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Highest intent</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Bounce Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">28%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Healthy</div>
-                </div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Top Pages</div>
-            <div class="grid grid-3col">
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Services</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">89 views</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">Work / Case Studies</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">67 views</div></div>
-                <div class="card"><div style="font-weight: 600; margin-bottom: var(--spacing-md);">About / Methodology</div><div style="font-size: var(--font-size-xl); color: var(--color-accent-success); font-weight: 600;">45 views</div></div>
-            </div>
-        </div>
-
-        <!-- JOB SEARCH TAB -->
+        <!-- ===== JOB SEARCH TAB ===== -->
         <div id="job-search" class="tab-content">
-            <div class="section-title">💼 Job Search — Active Pipeline</div>
-            
-            <!-- Pipeline Overview -->
-            <div class="card">
-                <div class="card-title">Pipeline Overview</div>
-                <div class="metrics">
-                    <div class="metric success">
-                        <div class="metric-label">Tier 1 Companies</div>
-                        <div class="metric-value" id="tier1Count">0</div>
-                        <div class="metric-change">Priority targets</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Warm Intros Sent</div>
-                        <div class="metric-value" id="warmIntrosRequested">0</div>
-                        <div class="metric-change">of <span id="warmIntrosTargeted">5</span></div>
-                    </div>
-                    <div class="metric warning">
-                        <div class="metric-label">Applications</div>
-                        <div class="metric-value" id="jobApplications">0</div>
-                        <div class="metric-change">In flight</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Response Rate</div>
-                        <div class="metric-value" id="jobResponseRate">--</div>
-                        <div class="metric-change">Est.</div>
+            <!-- Hero Section -->
+            <div class="job-search-hero">
+                <div class="job-search-header">
+                    <div>
+                        <h2 style="font-size: var(--font-size-3xl); margin-bottom: var(--sp-md);">Active Job Search Pipeline</h2>
+                        <p class="text-secondary" style="font-size: var(--font-size-sm);">Warm intro phase • Target: 2-3 coffee chats by Feb 28</p>
                     </div>
                 </div>
-                <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); font-size: var(--font-size-sm);">
-                        <div>
-                            <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Compensation Target</div>
-                            <div id="compensationTarget" style="color: var(--color-accent-primary); font-weight: 500;">$180-250K + 0.5-1.5% equity</div>
-                        </div>
-                        <div>
-                            <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Current Phase</div>
-                            <div id="pipelineStage" style="color: var(--color-accent-secondary); font-weight: 500;">Warm intro phase</div>
-                        </div>
+                
+                <div class="job-search-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Tier 1 Companies</span>
+                        <span class="meta-value" id="tier1Count">5</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Warm Intros Sent</span>
+                        <span class="meta-value"><span id="warmIntrosRequested">0</span>/<span id="warmIntrosTargeted">5</span></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Applications</span>
+                        <span class="meta-value" id="jobApplications">0</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Compensation</span>
+                        <span class="meta-value" style="color: var(--accent-success);">$180-250K</span>
                     </div>
                 </div>
             </div>
 
             <!-- Tier 1 Companies -->
-            <div class="card">
-                <div class="card-title">Tier 1: Priority Targets</div>
-                <div class="card-subtitle">High-leverage, deep-research focus (AI-native, design-forward)</div>
-                <ul class="list" id="tier1List" style="margin-top: var(--spacing-lg);">
+            <div class="mt-2xl">
+                <h3 class="section-title">🎯 Tier 1: Priority Targets</h3>
+                <p class="text-secondary mb-xl" style="font-size: var(--font-size-sm);">High-leverage, deep-research focus (AI-native, design-forward)</p>
+                
+                <div class="grid" id="tier1Grid">
                     <!-- Populated by JS -->
-                </ul>
+                </div>
             </div>
 
             <!-- Tier 2 Companies -->
-            <div class="card">
-                <div class="card-title">Tier 2: Strong Alternatives</div>
-                <div class="card-subtitle">Well-funded, design-focused, or high-growth</div>
-                <ul class="list" id="tier2List" style="margin-top: var(--spacing-lg);">
+            <div class="mt-2xl">
+                <h3 class="section-title">📊 Tier 2: Strong Alternatives</h3>
+                <p class="text-secondary mb-xl" style="font-size: var(--font-size-sm);">Well-funded, design-focused, or high-growth backup options</p>
+                
+                <div class="grid grid-3col" id="tier2Grid">
                     <!-- Populated by JS -->
-                </ul>
+                </div>
             </div>
 
             <!-- Next Actions -->
-            <div class="card">
-                <div class="card-title">Next Actions</div>
+            <div class="mt-2xl">
+                <h3 class="section-title">⚡ Next Actions</h3>
+                
                 <ul class="list" id="careerNextActions">
                     <!-- Populated by JS -->
                 </ul>
             </div>
 
             <!-- Timeline -->
-            <div class="card">
-                <div class="card-title">Outreach Timeline</div>
-                <ul class="list" id="careerTimeline">
+            <div class="mt-2xl">
+                <h3 class="section-title">📅 Outreach Timeline</h3>
+                
+                <div class="grid grid-3col" id="careerTimeline">
                     <!-- Populated by JS -->
-                </ul>
-            </div>
-        </div>
-
-        <!-- LINKEDIN TAB -->
-        <div id="linkedin" class="tab-content">
-            <div class="section-title">🔗 LinkedIn Content — Personal Brand</div>
-            <div class="grid grid-4col">
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Followers</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">1,250</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">+2.3% monthly</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Engagement Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success);">8.5%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Above avg</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Posts This Month</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">4</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Repurposed content</div>
-                </div>
-                <div class="card">
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-md);">Top Post Engagement</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600;">156</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Interactions</div>
-                </div>
-            </div>
-            <div class="section-title" style="margin-top: var(--spacing-xl);">📊 Content Strategy</div>
-            <div class="grid grid-2col">
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Thought Leadership Topics</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <div>• AI in Design Operations</div>
-                        <div>• Scaling SaaS Design</div>
-                        <div>• Design System Strategy</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div style="font-weight: 600; margin-bottom: var(--spacing-md);">Primary Audience</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <div>• VP Design/Product</div>
-                        <div>• Design Leaders</div>
-                        <div>• SaaS Founders</div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- CULTIVATE TAB -->
+        <!-- PLACEHOLDER TABS (simplified for redesign focus) -->
+        <div id="overview" class="tab-content">
+            <h2 class="section-title">Dashboard Overview</h2>
+            <p class="text-secondary">Overview tab content</p>
+        </div>
+
+        <div id="trading" class="tab-content">
+            <h2 class="section-title">Trading</h2>
+            <p class="text-secondary">Trading tab content</p>
+        </div>
+
+        <div id="kinlet" class="tab-content">
+            <h2 class="section-title">Kinlet</h2>
+            <p class="text-secondary">Kinlet tab content</p>
+        </div>
+
+        <div id="kinetic-ui" class="tab-content">
+            <h2 class="section-title">Kinetic-UI</h2>
+            <p class="text-secondary">Kinetic-UI tab content</p>
+        </div>
+
         <div id="cultivate" class="tab-content">
-            <div class="section-title">🌱 Cultivate</div>
-            <div class="grid grid-3col">
-                <div class="card">
-                    <div class="card-title">Revenue</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">$0</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">MTD target</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Customers</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">0</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Stage: Framework</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Status</div>
-                    <div style="font-size: var(--font-size-lg); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;"><span class="status status-yellow"></span>Building</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">GTM strategy: Next phase</div>
-                </div>
-            </div>
+            <h2 class="section-title">Cultivate</h2>
+            <p class="text-secondary">Cultivate tab content</p>
         </div>
 
-        <!-- WINZENBURG TAB -->
+        <div id="potshards" class="tab-content">
+            <h2 class="section-title">Potshards</h2>
+            <p class="text-secondary">Potshards tab content</p>
+        </div>
+
         <div id="winzenburg" class="tab-content">
-            <div class="section-title">💻 Winzenburg.com</div>
-            <div class="grid grid-3col">
-                <div class="card">
-                    <div class="card-title">Monthly Traffic</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">342</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Visitors / month</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">CTA Conversion</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success); margin: var(--spacing-lg) 0;">5.34%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Call booking rate</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Top Source</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">LinkedIn</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Highest intent traffic</div>
-                </div>
-            </div>
+            <h2 class="section-title">Winzenburg</h2>
+            <p class="text-secondary">Winzenburg tab content</p>
         </div>
 
-        <!-- LINKEDIN TAB -->
         <div id="linkedin" class="tab-content">
-            <div class="section-title">🔗 LinkedIn Content</div>
-            <div class="grid grid-3col">
-                <div class="card">
-                    <div class="card-title">Followers</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">1,250</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">+2.3% monthly growth</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Engagement Rate</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-accent-success); margin: var(--spacing-lg) 0;">8.5%</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Above average for platform</div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Posts This Month</div>
-                    <div style="font-size: var(--font-size-3xl); font-weight: 600; color: var(--color-text-primary); margin: var(--spacing-lg) 0;">4</div>
-                    <div style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">Repurposed from articles</div>
-                </div>
-            </div>
+            <h2 class="section-title">LinkedIn</h2>
+            <p class="text-secondary">LinkedIn tab content</p>
         </div>
     </div>
 
     <script>
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-        }
-
-        // Tab click handlers
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                switchTab(tab.getAttribute('data-tab'));
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.getAttribute('data-tab');
+                
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+                
+                document.getElementById(tabName).classList.add('active');
+                btn.classList.add('active');
             });
         });
 
@@ -1016,14 +584,14 @@
                     updateCareer(data.career);
                 }
             } catch (error) {
-                console.error('Error loading dashboard data:', error);
+                console.error('Error loading dashboard:', error);
             }
         }
 
         function updateCareer(career) {
             if (!career) return;
 
-            // Pipeline overview
+            // Header metrics
             const tier1Count = career.tier1 ? career.tier1.length : 0;
             document.getElementById('tier1Count').textContent = tier1Count;
             
@@ -1031,60 +599,42 @@
             document.getElementById('warmIntrosTargeted').textContent = warmIntroMetrics.targeted || 5;
             document.getElementById('warmIntrosRequested').textContent = warmIntroMetrics.requested || 0;
             document.getElementById('jobApplications').textContent = career.applicationMetrics?.submitted || 0;
-            document.getElementById('jobResponseRate').textContent = warmIntroMetrics.responseRate || '--';
-            document.getElementById('compensationTarget').textContent = career.compensationTarget || '--';
-            document.getElementById('pipelineStage').textContent = career.pipelineStage || '--';
 
             // Tier 1 Companies
             if (career.tier1 && career.tier1.length > 0) {
-                const tier1List = document.getElementById('tier1List');
-                tier1List.innerHTML = career.tier1.map(company => {
-                    const statusColor = company.status === 'Warm intro pending' ? 'status-online' : 
-                                       company.status === 'Research phase' ? 'status-pending' : 'status-offline';
-                    return `
-                        <li class="list-item">
-                            <div style="flex: 1;">
-                                <div class="list-item-label">${company.company}</div>
-                                <div class="list-item-value">${company.targetRole}</div>
-                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
-                                    ${company.location} • DM: ${company.decisionMaker}
-                                </div>
+                const tier1Grid = document.getElementById('tier1Grid');
+                tier1Grid.innerHTML = career.tier1.map(company => `
+                    <div class="company-card">
+                        <div class="company-info">
+                            <div class="company-name">${company.company}</div>
+                            <div class="company-role">${company.targetRole}</div>
+                            <div class="company-details">
+                                <span>📍 ${company.location}</span>
+                                <span>👤 ${company.decisionMaker}</span>
                             </div>
-                            <div style="text-align: right;">
-                                <div class="list-item-status ${statusColor}">
-                                    <span>${company.warmIntroStatus}</span>
-                                </div>
-                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
-                                    ${company.status}
-                                </div>
-                            </div>
-                        </li>
-                    `;
-                }).join('');
+                        </div>
+                        <div class="company-status">
+                            <span class="status-badge ${
+                                company.status === 'Warm intro pending' ? 'pending' :
+                                company.status === 'Research phase' ? 'research' : 'success'
+                            }">${company.warmIntroStatus}</span>
+                            <span class="status-text">${company.status}</span>
+                        </div>
+                    </div>
+                `).join('');
             }
 
             // Tier 2 Companies
             if (career.tier2 && career.tier2.length > 0) {
-                const tier2List = document.getElementById('tier2List');
-                tier2List.innerHTML = career.tier2.map(company => {
-                    const statusColor = company.warmIntroStatus === 'Pending' ? 'status-pending' : 'status-offline';
-                    return `
-                        <li class="list-item">
-                            <div style="flex: 1;">
-                                <div class="list-item-label">${company.company}</div>
-                                <div class="list-item-value">${company.targetRole}</div>
-                                <div style="font-size: var(--font-size-xs); color: var(--color-text-tertiary); margin-top: var(--spacing-xs);">
-                                    ${company.location}
-                                </div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div class="list-item-status ${statusColor}">
-                                    <span>${company.status}</span>
-                                </div>
-                            </div>
-                        </li>
-                    `;
-                }).join('');
+                const tier2Grid = document.getElementById('tier2Grid');
+                tier2Grid.innerHTML = career.tier2.map(company => `
+                    <div class="card">
+                        <div class="card-title">${company.company}</div>
+                        <p class="text-secondary" style="font-size: var(--font-size-sm); margin-bottom: var(--sp-lg);">${company.targetRole}</p>
+                        <p class="text-tertiary" style="font-size: var(--font-size-xs); margin-bottom: var(--sp-md);">📍 ${company.location}</p>
+                        <span class="status-badge research">${company.status}</span>
+                    </div>
+                `).join('');
             }
 
             // Next Actions
@@ -1094,10 +644,10 @@
                     const isUrgent = action.includes('by Feb 28');
                     return `
                         <li class="list-item">
-                            <div>
-                                <div class="list-item-label" style="color: ${isUrgent ? 'var(--color-accent-warning)' : 'var(--color-text-primary)'};">
-                                    ${action}
-                                </div>
+                            <div style="flex: 1;">
+                                <span style="color: ${isUrgent ? 'var(--accent-warning)' : 'var(--text-primary)'}; font-weight: ${isUrgent ? '600' : '500'};">
+                                    ${isUrgent ? '⚠️ ' : ''}${action}
+                                </span>
                             </div>
                         </li>
                     `;
@@ -1106,31 +656,25 @@
 
             // Timeline
             if (career.timeline) {
-                const timelineList = document.getElementById('careerTimeline');
+                const timelineGrid = document.getElementById('careerTimeline');
                 const phases = [
-                    { label: 'Phase 1: Warm Intros', value: career.timeline.phase1 },
-                    { label: 'Phase 2: Content Visibility', value: career.timeline.phase2 },
-                    { label: 'Phase 3: Direct Outreach', value: career.timeline.phase3 }
+                    { emoji: '🚀', label: 'Phase 1: Warm Intros', value: career.timeline.phase1 },
+                    { emoji: '📝', label: 'Phase 2: Content', value: career.timeline.phase2 },
+                    { emoji: '💬', label: 'Phase 3: Outreach', value: career.timeline.phase3 }
                 ];
-                timelineList.innerHTML = phases.map(phase => `
-                    <li class="list-item">
-                        <div>
-                            <div class="list-item-label">${phase.label}</div>
-                            <div class="list-item-value">${phase.value}</div>
-                        </div>
-                    </li>
+                timelineGrid.innerHTML = phases.map(phase => `
+                    <div class="card">
+                        <div style="font-size: 24px; margin-bottom: var(--sp-md);">${phase.emoji}</div>
+                        <div class="card-title" style="margin-bottom: var(--sp-sm);">${phase.label}</div>
+                        <p class="text-secondary" style="font-size: var(--font-size-sm);">${phase.value}</p>
+                    </div>
                 `).join('');
             }
         }
 
-        // Load dashboard on page load
+        // Load data on page load
         loadDashboard();
-
-        // Refresh every 30 seconds
         setInterval(loadDashboard, 30000);
-
-        // Force cache bust on Vercel
-        console.log('Dashboard loaded at:', new Date().toISOString());
     </script>
 </body>
 </html>
