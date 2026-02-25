@@ -6,194 +6,94 @@
     "lastHeartbeat": "just now"
   },
   "screener": {
-    "lastScan": "2026-02-24T19:57:07.565Z",
+    "lastScan": "2026-02-25T15:12:17.010Z",
     "tier3": [
-      {
-        "symbol": "MU",
-        "rsPct": 100,
-        "zScore": 161.27,
-        "momentum": 255.9,
-        "volume": 0.78,
-        "score": 0.536,
-        "tier": 3
-      },
       {
         "symbol": "ASML",
         "rsPct": 100,
-        "zScore": 66.53,
-        "momentum": 98.5,
-        "volume": 0.65,
-        "score": 0.53,
-        "tier": 3
-      },
-      {
-        "symbol": "JNJ",
-        "rsPct": 100,
-        "zScore": 28.28,
-        "momentum": 38.9,
-        "volume": 0.45,
-        "score": 0.521,
-        "tier": 3
-      },
-      {
-        "symbol": "LRCX",
-        "rsPct": 100,
-        "zScore": 96.78,
-        "momentum": 144.1,
-        "volume": 0.42,
-        "score": 0.519,
-        "tier": 3
+        "zScore": 72.07,
+        "momentum": 104.8,
+        "volume": 0.22,
+        "score": 0.51,
+        "tier": 3,
+        "atNewHigh": true
       },
       {
         "symbol": "AMAT",
         "rsPct": 100,
-        "zScore": 91.22,
-        "momentum": 132.8,
-        "volume": 0.37,
-        "score": 0.517,
-        "tier": 3
-      },
-      {
-        "symbol": "XLE",
-        "rsPct": 100,
-        "zScore": 23.17,
-        "momentum": 26.8,
-        "volume": 0.74,
-        "score": 0.505,
-        "tier": 3
-      },
-      {
-        "symbol": "GILD",
-        "rsPct": 100,
-        "zScore": 22.86,
-        "momentum": 30.7,
-        "volume": 0.54,
-        "score": 0.491,
-        "tier": 3
-      },
-      {
-        "symbol": "VEA",
-        "rsPct": 100,
-        "zScore": 16.79,
-        "momentum": 19.3,
-        "volume": 0.66,
-        "score": 0.399,
-        "tier": 3
-      },
-      {
-        "symbol": "XLI",
-        "rsPct": 100,
-        "zScore": 15.78,
-        "momentum": 16.4,
-        "volume": 0.67,
-        "score": 0.384,
-        "tier": 3
-      },
-      {
-        "symbol": "AMD",
-        "rsPct": 100,
-        "zScore": 11.58,
-        "momentum": 27.7,
-        "volume": 1.88,
-        "score": 0.373,
-        "tier": 3
-      },
-      {
-        "symbol": "KO",
-        "rsPct": 100,
-        "zScore": 14.71,
-        "momentum": 16.7,
-        "volume": 0.57,
-        "score": 0.362,
-        "tier": 3
+        "zScore": 99.56,
+        "momentum": 144,
+        "volume": 0.2,
+        "score": 0.509,
+        "tier": 3,
+        "atNewHigh": true
       }
     ],
     "tier2": [
       {
-        "symbol": "XLP",
+        "symbol": "AMD",
         "rsPct": 100,
-        "zScore": 11.75,
-        "momentum": 10.1,
-        "volume": 0.78,
-        "score": 0.324,
-        "tier": 2
+        "zScore": 13.65,
+        "momentum": 30.6,
+        "volume": 0.29,
+        "score": 0.332,
+        "tier": 2,
+        "atNewHigh": false
       },
       {
         "symbol": "IWM",
         "rsPct": 100,
-        "zScore": 10.98,
-        "momentum": 12.9,
-        "volume": 0.7,
-        "score": 0.308,
-        "tier": 2
-      },
-      {
-        "symbol": "XLU",
-        "rsPct": 100,
-        "zScore": 10.11,
-        "momentum": 11.2,
-        "volume": 0.93,
-        "score": 0.305,
-        "tier": 2
-      },
-      {
-        "symbol": "XLV",
-        "rsPct": 100,
-        "zScore": 9.13,
-        "momentum": 15.3,
-        "volume": 0.78,
-        "score": 0.283,
-        "tier": 2
+        "zScore": 10.59,
+        "momentum": 14,
+        "volume": 0.15,
+        "score": 0.277,
+        "tier": 2,
+        "atNewHigh": false
       },
       {
         "symbol": "TSLA",
         "rsPct": 100,
-        "zScore": 9.34,
-        "momentum": 20.2,
-        "volume": 0.64,
-        "score": 0.279,
-        "tier": 2
+        "zScore": 10.42,
+        "momentum": 19.3,
+        "volume": 0.21,
+        "score": 0.276,
+        "tier": 2,
+        "atNewHigh": false
       },
       {
-        "symbol": "PG",
+        "symbol": "NVDA",
         "rsPct": 100,
-        "zScore": 8.83,
-        "momentum": 5.9,
-        "volume": 0.5,
-        "score": 0.265,
-        "tier": 2
+        "zScore": 8.43,
+        "momentum": 9,
+        "volume": 0.27,
+        "score": 0.247,
+        "tier": 2,
+        "atNewHigh": false
       },
       {
-        "symbol": "VTI",
+        "symbol": "AVGO",
         "rsPct": 100,
-        "zScore": 5.37,
-        "momentum": 7.2,
-        "volume": 0.5,
-        "score": 0.209,
-        "tier": 2
-      },
-      {
-        "symbol": "VOO",
-        "rsPct": 100,
-        "zScore": 5.22,
-        "momentum": 7.2,
-        "volume": 0.47,
-        "score": 0.205,
-        "tier": 2
+        "zScore": 6.98,
+        "momentum": 13.9,
+        "volume": 0.11,
+        "score": 0.217,
+        "tier": 2,
+        "atNewHigh": false
       }
     ],
     "tier1": [
       {
-        "symbol": "AVGO",
+        "symbol": "VOO",
         "rsPct": 100,
-        "zScore": 3.69,
-        "momentum": 10.7,
-        "volume": 0.44,
-        "score": 0.179,
-        "tier": 1
+        "zScore": 5.54,
+        "momentum": 8.1,
+        "volume": 0.15,
+        "score": 0.195,
+        "tier": 1,
+        "atNewHigh": false
       }
     ],
-    "totalCandidates": 20
+    "totalCandidates": 8
   },
   "content": {
     "postshards": {
