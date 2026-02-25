@@ -298,6 +298,12 @@ A well-regarded agent presence can drive human traffic to my projects. Focus on 
 
 ## Multi-Model Strategy: Cost-Optimized Router (Feb 25, 2026)
 
+**PRIMARY GOAL: Maximize local Ollama usage. Only use cloud API when gates fail.**
+
+**Budget Reality:** Local models are FREE. Cloud APIs are NOT. Every escalation costs money.
+
+**Core Principle:** If the local model *can* do it, we use it. Period.
+
 **Architecture: Start cheap, escalate only when needed. Prefer Ollama local models; fall back to cloud only when necessary.**
 
 ### Available Models (Feb 25, 2026)
@@ -486,4 +492,67 @@ Every subagent returns JSON:
 - ❌ Exceed 4k token input to local subagents (summarize first)
 - ❌ Allow multiple subagents to escalate independently (one lead agent only)
 
-**Monitor:** Weekly token usage review (Fridays). Concurrent performance: are local models responsive under load? If slow, reduce context size or switch to swarm aggregation pattern.
+### Cost Governance (Hard Rules - Non-Negotiable)
+
+**Rule 1: Default to Local (Zero Cost)**
+- Every task STARTS with Ollama
+- Extract, classify, summarize, code review, planning, writing, refactoring → LOCAL FIRST
+- "Try local first" is not optional; it's the rule
+
+**Rule 2: Escalation Only on Gate Failure**
+- If the local model produces a VALID output (schema correct, no contradictions, complete): STOP. Use it.
+- If and ONLY IF gate check fails → escalate to Tier B
+- If Tier B gate fails → escalate to Tier C
+- **DO NOT escalate for speed, convenience, or "just to be safe"**
+
+**Rule 3: Every Escalation Requires Justification**
+- In ROUTE JSON, the `reason` field MUST explain why local was insufficient
+- Examples of VALID reasons:
+  - "Gate check failed: JSON schema violated"
+  - "Output contradicts itself; needs human-level resolution"
+  - "High-stakes financial decision requires Opus-level reasoning"
+- Examples of INVALID reasons:
+  - "Would be faster"
+  - "Cloud model is 'safer'"
+  - "Just to double-check"
+
+**Rule 4: Transparent Cost Tracking**
+- Every premium escalation (Tier B/C) is logged with:
+  - Task description
+  - Why local failed
+  - Model used
+  - Approximate cost
+- Weekly cost report: list all escalations, total spend, % local vs. cloud
+
+**Rule 5: Hard Monthly Budget (Set This)**
+- What's your monthly API budget? (e.g., $100/month, $500/month?)
+- Once set, I will NOT exceed it without explicit approval
+- When approaching limit, I'll alert you and default harder to local models
+
+**Rule 6: Cron/Heartbeat = 100% Local**
+- Background jobs (cron, heartbeat, automated monitoring): ALWAYS local only
+- NO cloud escalation in automated runs
+- Return best local attempt + known gaps instead
+
+**Rule 7: The "Coffee Test"**
+- Before escalating to cloud, ask: "Is this worth the cost of a coffee?"
+- If the answer is no, use the local model even if it's 70% confidence instead of 95%
+- Speed and perfection are not worth $0.10-0.50 per task
+
+**Weekly Cost Review (Fridays at 2 PM MT):**
+- List all escalations this week
+- Total cloud spend
+- % of time using local models (target: 80%+)
+- Any patterns showing "lazy escalation" (fix these)
+- Any tasks where local surprised us (note for next time)
+
+**If I Catch Myself Escalating Too Much:**
+- I will alert you immediately
+- I will not continue premium usage without your approval
+- I will suggest ways to handle more tasks locally
+
+### Monitor
+
+- Daily: Count local vs. cloud calls (try for 80%+ local)
+- Weekly (Friday 2 PM): Full cost report + escalation analysis
+- Monthly: Total spend vs. budget; identify cost-saving opportunities
