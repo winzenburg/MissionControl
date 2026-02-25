@@ -12,21 +12,21 @@
         }
 
         :root {
-            /* Premium dark fintech palette */
-            --color-bg-primary: #09090b;
-            --color-bg-secondary: #141416;
-            --color-bg-tertiary: #1e1e22;
-            --color-bg-hover: #27272d;
+            /* Premium dark fintech palette - refined */
+            --color-bg-primary: #08080a;
+            --color-bg-secondary: #121214;
+            --color-bg-tertiary: #1a1a1e;
+            --color-bg-hover: #242428;
             --color-text-primary: #fafafa;
-            --color-text-secondary: #a1a1a6;
-            --color-text-tertiary: #717175;
+            --color-text-secondary: #a3a3a8;
+            --color-text-tertiary: #737378;
             --color-accent-primary: #00d9ff;
             --color-accent-secondary: #6366f1;
             --color-accent-success: #10b981;
             --color-accent-danger: #ef4444;
             --color-accent-warning: #f59e0b;
-            --color-border: #27272d;
-            --color-border-light: #3f3f46;
+            --color-border: #242428;
+            --color-border-light: #3a3a40;
             --spacing-xs: 4px;
             --spacing-sm: 8px;
             --spacing-md: 12px;
@@ -68,13 +68,15 @@
 
         header {
             margin-bottom: var(--spacing-2xl);
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: 2px solid var(--color-border);
             padding-bottom: var(--spacing-xl);
         }
 
         h1 {
             font-size: var(--font-size-3xl);
             margin-bottom: var(--spacing-lg);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .tabs {
@@ -95,8 +97,9 @@
             font-size: var(--font-size-base);
             font-weight: 500;
             white-space: nowrap;
-            border-bottom: 2px solid transparent;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .tab:hover {
@@ -106,14 +109,29 @@
         .tab.active {
             color: var(--color-accent-primary);
             border-bottom-color: var(--color-accent-primary);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.2);
         }
 
         .tab-content {
             display: none;
+            opacity: 0;
+            animation: fadeInTab 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .tab-content.active {
             display: block;
+            opacity: 1;
+        }
+
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .grid {
@@ -140,13 +158,15 @@
             border-radius: 12px;
             padding: var(--spacing-xl);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .card:hover {
             background: linear-gradient(135deg, var(--color-bg-hover) 0%, var(--color-bg-tertiary) 100%);
-            border-color: var(--color-border-light);
-            transform: translateY(-2px);
+            border-color: var(--color-accent-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.15);
         }
 
         .card-title {
@@ -196,9 +216,15 @@
             font-size: var(--font-size-2xl);
             font-weight: 700;
             margin: var(--spacing-3xl) 0 var(--spacing-2xl) 0;
-            border-bottom: 1px solid var(--color-border);
             padding-bottom: var(--spacing-lg);
-            letter-spacing: -0.3px;
+            border-bottom: 2px solid var(--color-accent-primary);
+            letter-spacing: -0.4px;
+            color: var(--color-text-primary);
+        }
+
+        .section-title::before {
+            display: inline-block;
+            margin-right: var(--spacing-md);
         }
 
         .time-allocation {
