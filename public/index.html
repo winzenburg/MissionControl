@@ -1146,6 +1146,9 @@
 
         // Refresh every 30 seconds
         setInterval(loadDashboard, 30000);
+
+        // Force cache bust on Vercel
+        console.log('Dashboard loaded at:', new Date().toISOString());
     </script>
 </body>
 </html>
