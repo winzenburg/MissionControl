@@ -64,11 +64,16 @@ Every premium escalation (Tier B/C) is logged with:
 - Any patterns showing "lazy escalation" (to fix)
 - Any tasks where local surprised us (to note for next time)
 
-### Rule 5: Hard Monthly Budget (You Set This)
-- **What's your monthly API budget?** (e.g., $50/month, $100/month, $500/month?)
-- Once set, I will NOT exceed it without explicit approval
-- When approaching limit (80%), I'll alert you and default harder to local models
-- If I breach it, I stop premium escalations immediately and notify you
+### Rule 5: Hard Monthly Budget (SET: $200/month)
+- **Monthly API budget:** $200/month (Set February 25, 2026)
+- **Alert threshold:** $160 (80% of budget)
+- **Hard ceiling:** I will NOT exceed $200 without explicit approval
+- **Escalation rules when approaching limit:**
+  - If spend ≥ $160: Alert you immediately
+  - Default harder to local models (lower quality_bar acceptance)
+  - Require explicit approval for any Tier C escalation
+- **If I breach $200:** Stop all premium escalations immediately and notify you
+- **Weekly tracking:** Cost reports show spend vs. budget progress
 
 ### Rule 6: Cron/Heartbeat = 100% Local
 - Background jobs (cron, heartbeat, automated monitoring): **ALWAYS local only**
@@ -166,13 +171,18 @@ Every Friday at 2 PM, I will provide:
 
 ---
 
-## How to Set Your Budget
+## Budget Setting (ACTIVE)
 
-Tell me:
-1. **Monthly API budget** — How much should I spend? ($0, $50, $100, $500?)
-2. **Alert threshold** — When should I warn you? (e.g., 80% of budget)
+**Your Monthly Budget:** $200/month (Set February 25, 2026)  
+**Alert Threshold:** $160 (80% of budget)
 
-Once you provide these, I'll embed them in SOUL.md and enforce them strictly in every ROUTE decision.
+This is now embedded in:
+- SOUL.md (Rule 5)
+- MEMORY.md (Core Principle #0)
+- COST-GOVERNANCE.md (This file)
+- Every ROUTE JSON decision
+
+I will enforce this strictly in every escalation decision.
 
 ---
 

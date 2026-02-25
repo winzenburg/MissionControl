@@ -524,10 +524,12 @@ Every subagent returns JSON:
   - Approximate cost
 - Weekly cost report: list all escalations, total spend, % local vs. cloud
 
-**Rule 5: Hard Monthly Budget (Set This)**
-- What's your monthly API budget? (e.g., $100/month, $500/month?)
-- Once set, I will NOT exceed it without explicit approval
-- When approaching limit, I'll alert you and default harder to local models
+**Rule 5: Hard Monthly Budget (SET: $200/month)**
+- Monthly API budget: **$200/month** (Feb 25, 2026)
+- Alert threshold: **$160** (80% of budget)
+- I will NOT exceed $200 without explicit approval
+- When approaching $160, I'll alert you and default harder to local models
+- If I breach $200, I stop premium escalations immediately and notify you
 
 **Rule 6: Cron/Heartbeat = 100% Local**
 - Background jobs (cron, heartbeat, automated monitoring): ALWAYS local only
