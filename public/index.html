@@ -862,41 +862,35 @@
         <div id="job-search" class="tab-content">
             <div class="section-title">💼 Job Search — Active Pipeline</div>
             
-            <!-- Pipeline Overview -->
-            <div class="card">
-                <div class="card-title">Pipeline Overview</div>
-                <div class="metrics">
-                    <div class="metric success">
-                        <div class="metric-label">Tier 1 Companies</div>
-                        <div class="metric-value" id="tier1Count">0</div>
-                        <div class="metric-change">Priority targets</div>
+            <!-- DEADLINE ALERT -->
+            <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid var(--color-accent-warning); border-radius: 12px; padding: var(--spacing-xl); margin-bottom: var(--spacing-2xl);">
+                <div style="color: var(--color-accent-warning); font-weight: 700; font-size: var(--font-size-lg); margin-bottom: var(--spacing-md);">⏰ DEADLINE: Feb 28 (3 days)</div>
+                <div style="color: var(--color-text-secondary); font-size: var(--font-size-base); line-height: 1.6;">Target: 2–3 warm intro requests completed</div>
+            </div>
+
+            <!-- CORE METRICS - High Priority -->
+            <div style="margin-bottom: var(--spacing-3xl);">
+                <div style="font-size: var(--font-size-xl); font-weight: 700; margin-bottom: var(--spacing-lg); color: var(--color-text-primary);">Pipeline Status</div>
+                <div class="grid grid-4col">
+                    <div class="card">
+                        <div style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Warm Intros</div>
+                        <div style="font-size: var(--font-size-3xl); font-weight: 700; color: var(--color-accent-primary); margin-bottom: var(--spacing-sm);"><span id="warmIntrosRequested">0</span>/<span id="warmIntrosTargeted">5</span></div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Requested</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">Warm Intros Sent</div>
-                        <div class="metric-value" id="warmIntrosRequested">0</div>
-                        <div class="metric-change">of <span id="warmIntrosTargeted">5</span></div>
+                    <div class="card">
+                        <div style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Tier 1 Companies</div>
+                        <div style="font-size: var(--font-size-3xl); font-weight: 700; color: var(--color-text-primary); margin-bottom: var(--spacing-sm);" id="tier1Count">0</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">Priority targets</div>
                     </div>
-                    <div class="metric warning">
-                        <div class="metric-label">Applications</div>
-                        <div class="metric-value" id="jobApplications">0</div>
-                        <div class="metric-change">In flight</div>
+                    <div class="card">
+                        <div style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Applications</div>
+                        <div style="font-size: var(--font-size-3xl); font-weight: 700; color: var(--color-text-primary); margin-bottom: var(--spacing-sm);" id="jobApplications">0</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">In flight</div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-label">Response Rate</div>
-                        <div class="metric-value" id="jobResponseRate">--</div>
-                        <div class="metric-change">Est.</div>
-                    </div>
-                </div>
-                <div style="margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); font-size: var(--font-size-sm);">
-                        <div>
-                            <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Compensation Target</div>
-                            <div id="compensationTarget" style="color: var(--color-accent-primary); font-weight: 500;">$180-250K + 0.5-1.5% equity</div>
-                        </div>
-                        <div>
-                            <div style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xs);">Current Phase</div>
-                            <div id="pipelineStage" style="color: var(--color-accent-secondary); font-weight: 500;">Warm intro phase</div>
-                        </div>
+                    <div class="card">
+                        <div style="font-size: var(--font-size-xs); font-weight: 600; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-md);">Target</div>
+                        <div style="font-size: var(--font-size-lg); font-weight: 600; color: var(--color-accent-success); margin-bottom: var(--spacing-sm);">$180–250K</div>
+                        <div style="font-size: var(--font-size-sm); color: var(--color-text-tertiary);">+ 0.5–1.5% equity</div>
                     </div>
                 </div>
             </div>
