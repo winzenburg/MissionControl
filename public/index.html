@@ -586,12 +586,8 @@
                                 <th style="text-align: left; padding: var(--spacing-md); border-bottom: 1px solid var(--color-border);">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">1</td><td style="padding: var(--spacing-md);"><strong>MU</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">161.27</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+255.9%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">2</td><td style="padding: var(--spacing-md);"><strong>ASML</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">66.53</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+98.5%</td><td style="padding: var(--spacing-md);">OPEN</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">3</td><td style="padding: var(--spacing-md);"><strong>JNJ</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">28.28</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+38.9%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">4</td><td style="padding: var(--spacing-md);"><strong>LRCX</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">96.78</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+144.1%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
-                            <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">5</td><td style="padding: var(--spacing-md);"><strong>AMAT</strong></td><td style="padding: var(--spacing-md);">100%</td><td style="padding: var(--spacing-md);">91.22</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+132.8%</td><td style="padding: var(--spacing-md);">WAIT</td></tr>
+                        <tbody id="screenerTier3Table">
+                            <!-- Dynamically populated by JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -1061,6 +1057,10 @@
                 if (data.engineMonitor) {
                     updateEngineMonitor(data.engineMonitor);
                 }
+                
+                if (data.screener) {
+                    updateScreenerTable(data.screener);
+                }
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
             }
@@ -1181,6 +1181,20 @@
             document.getElementById('engineCandidates').textContent = monitor.candidatesMonitored || 0;
             document.getElementById('engineEntries').textContent = monitor.entries || 0;
             document.getElementById('engineBlocked').textContent = monitor.blockedSignals || 0;
+        }
+
+        function updateScreenerTable(screener) {
+            if (!screener || !screener.tier3) return;
+
+            const tbody = document.getElementById('screenerTier3Table');
+            if (!tbody) return;
+
+            tbody.innerHTML = screener.tier3.map((stock, idx) => {
+                const momentum = stock.momentum.toFixed(1);
+                const zScore = stock.zScore.toFixed(2);
+                const status = stock.atNewHigh ? '🔝 52W HIGH' : 'MONITOR';
+                return `<tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: var(--spacing-md);">${idx + 1}</td><td style="padding: var(--spacing-md);"><strong>${stock.symbol}</strong></td><td style="padding: var(--spacing-md);">${stock.rsPct}%</td><td style="padding: var(--spacing-md);">${zScore}</td><td style="padding: var(--spacing-md); color: var(--color-accent-success);">+${momentum}%</td><td style="padding: var(--spacing-md);">${status}</td></tr>`;
+            }).join('');
         }
 
         // Load dashboard on page load
